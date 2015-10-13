@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 
 var ItemSchema = new mongoose.Schema({
   img: String,
-  types: [],
   tags: [],
+  types: [],
   missmatch: [],
   closet: [],
   owner: String

@@ -1,0 +1,15 @@
+
+<h1>{{ user.name }}</h1>
+
+<p>Types:</p>
+<div ng-repeat="type in user.types | orderBy:'toString()'"> {{type}}</div>
+<input type="text" ng-model="types">
+<button ng-click="updateArr('types')">Add Tag</button><br><br>
+
+<p>Tags:</p>
+<div ng-repeat="tag in user.tags | orderBy:'toString()'"> {{tag}}</div>
+<input type="text" ng-model="tags">
+<button ng-click="updateArr('tags')">Add Tag</button><br><br>
+
+<div>
+<p>Araaay: {{user}} </p></div>

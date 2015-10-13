@@ -2,13 +2,13 @@ var express = require('express');
 var router = express.Router();
 
 var mongoose = require('mongoose');
-var User = require('../models/Closet.js');
+var Closet = require('../models/Closet.js');
 
 /* GET */
 router.get('/', function(req, res, next) {
   Closet.find(function (err, users) {
     if (err) return next(err);
-    res.json(closet);
+    res.json(users);
   });
 });
 

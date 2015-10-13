@@ -1,0 +1,19 @@
+img: {{item.img}}<br>
+type: 
+<ul>
+	<li ng-repeat="type in user.types | orderBy:'toString()'">
+    	<button ng-show="!inArray('types', type)" ng-click="push('types', type)">add {{type}}</button>
+    	<button ng-show="inArray('types', type)" ng-click="splice('types', type)">remove {{type}}</button>
+	</li>
+</ul>
+tag:
+<ul>
+	<li ng-repeat="tag in user.tags | orderBy:'toString()'">
+    	<button ng-show="!inArray('tags', tag)" ng-click="push('tags', tag)">add {{tag}}</button>
+    	<button ng-show="inArray('tags', tag)" ng-click="splice('tags', tag)">remove {{tag}}</button>
+	</li>
+</ul>
+<br>
+{{item}}<br><br>
+
+<button ng-click="save()">Save</button>

@@ -2,13 +2,13 @@ var express = require('express');
 var router = express.Router();
 
 var mongoose = require('mongoose');
-var User = require('../models/Outfit.js');
+var Outfit = require('../models/Outfit.js');
 
 /* GET */
 router.get('/', function(req, res, next) {
   Outfit.find(function (err, users) {
     if (err) return next(err);
-    res.json(outfit);
+    res.json(users);
   });
 });
 
