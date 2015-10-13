@@ -1,0 +1,11 @@
+<form>
+  	img: <input type="text" ng-model="item.img"><br>
+	tag: <input type="text" ng-model="item.tag"><br>
+	type: <input type="text" ng-model="item.type"><br>
+	<button ng-click="save()">Create</button><br><br>
+</form>
+  <ul>
+    <li ng-repeat="item in items">
+        <a href="#/items/{{item._id}}">{{item.img}}</a>
+    </li>
+  </ul>
