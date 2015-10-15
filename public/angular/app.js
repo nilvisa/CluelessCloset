@@ -1,4 +1,4 @@
-angular.module('CC', ['ngRoute', 'ngResource', 'user', 'item'])
+angular.module('CC', ['ngRoute', 'ngResource', 'user', 'item', 'outfit'])
 
     //---------------
     // Services

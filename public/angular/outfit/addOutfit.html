@@ -1,0 +1,22 @@
+<div ng-repeat="block in blocks" ng-controller="CreateOutfitCtrl">
+	Item {{block}}:
+	<select ng-init="block" ng-model="option">
+		<option ng-repeat="type in user.types | orderBy:'toString()'" value="{{type}}">{{type}}</option>
+	</select> 
+	<button ng-click="findItems()">ok</button>
+	<br>
+	{{arr}}
+</div>
+<button ng-click="newBlock()">new Item</button>
+
+<br>total: {{coll}}<br>
+<div ng-repeat="(id, arrs) in coll">
+	wihooo: {{id}} {{arrs}}
+</div>
+	<br><br>
+
+
+<button ng-click="random()">Create Outfit!</button>
+
+{{random}}
+

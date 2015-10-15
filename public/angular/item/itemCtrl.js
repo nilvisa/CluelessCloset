@@ -27,9 +27,23 @@ angular.module('item', [])
 	$scope.user = Users.get({id: user_id});
 	$scope.item = Items.get({id: $routeParams.id});
 
+
+	// $scope.inTypesArray = function(string){
+
+	// 	var arr = $scope.item.types;
+		
+	// 	if (arr.indexOf(string) == -1){
+	// 		return false	
+	// 	} else {
+	// 		return true;
+	// 	}
+	// }
+
 	$scope.inArray = function(where, string){
-				
-		if ($scope.item[where].indexOf(string) == -1){
+
+		var arr = $scope.item[where];
+		
+		if (arr.indexOf(string) == -1){
 			return false	
 		} else {
 			return true;
