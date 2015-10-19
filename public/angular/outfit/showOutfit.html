@@ -1,1 +1,21 @@
-{{outfit}}
+<div ng-repeat="itemId in outfit.items">
+	<div ng-repeat="item in items | filter : {_id: itemId} ">
+		<a href="#/item/{{item._id}}">{{item.img}}</a>
+	</div>
+</div>
+
+tag:
+<ul>
+	<li ng-repeat="tag in user.tags | orderBy:'toString()'">
+    	<button ng-show="!inArray('tags', tag)" ng-click="push('tags', tag)">add {{tag}}</button>
+    	<button ng-show="inArray('tags', tag)" ng-click="splice('tags', tag)">remove {{tag}}</button>
+	</li>
+</ul>
+<input type="text" ng-model="tags">
+<button ng-click="updateArr('tags')">Add Tag</button><br><br>
+<br>
+{{outfit}}<br><br>
+
+
+<button ng-click="save()">Save</button>
+<button ng-click="remove()">REMOVE</button>

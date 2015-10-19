@@ -26,13 +26,12 @@ angular.module('item', [])
         return Users.get({id: id});
       }],
       itemsData: ['Items', function(Items) {
-
         return Items.query();
       }],
       getItem: ['$route', 'Items', function($route, Items) {
         var id = $route.current.params.id;
         return Items.get({id: id});
-      }]    
+      }],
     }
    });   
 }])
@@ -56,10 +55,12 @@ angular.module('item', [])
   }
 }])
 
-.controller('UpdateItemCtrl', ['$scope', 'Items', '$routeParams', 'getUser', 'itemsData', '$location', 'getItem', function ($scope, Items, $routeParams, getUser, itemsData, $location, getItem) {
+.controller('UpdateItemCtrl', ['$scope', 'Items', '$routeParams', 'Users', 'getUser', 'itemsData', 'Outfits', '$location', 'getItem', 
+function ($scope, Items, $routeParams, Users, getUser, itemsData, Outfits, $location, getItem) {
+  $scope.user = getUser;
 	$scope.items = itemsData;
-	$scope.user = getUser;
   $scope.item = getItem;
+  $scope.outfits = Outfits.query();
 
 	$scope.inArray = function(where, string){
 		var arr = $scope.item[where];
@@ -86,4 +87,29 @@ angular.module('item', [])
 		Items.update({id: $scope.item._id}, $scope.item);
     	$location.path('/item');
 	}
+
+  $scope.updateArr = function(where){
+    var string = $scope[where];
+    if(!string || string.length < 1) return;
+
+    var arr = $scope.user[where];
+    if(arr.indexOf(string) != -1) return;
+
+    $scope.user[where].push(string);
+    Users.update({id: $scope.user._id}, $scope.user);
+    $scope[where] = "";
+  }
+
+  $scope.remove = function(){
+    for (var i = 0, len = $scope.outfits.length; i < len; i++) {
+      var outfit = $scope.outfits[i];
+      if(outfit.items.indexOf($scope.item._id) != -1){
+        outfit.items.splice($scope.item._id, 1);
+        Outfits.update({id: outfit._id}, outfit);
+      }
+    }
+    Items.remove({id: $scope.item._id});
+    $location.path('/item');
+  }
+
 }]);

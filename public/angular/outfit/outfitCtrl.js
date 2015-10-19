@@ -126,7 +126,53 @@ angular.module('outfit', [])
 
 }])
 
-.controller('UpdateOutfitCtrl', ['$scope', 'Users', 'Items', 'Outfits', 'getOutfit', '$location', 
-  function ($scope, Users, Items, Outfits, getOutfit, $location) {
+.controller('UpdateOutfitCtrl', ['$scope', 'Users', 'getUser', 'Items', 'itemsData', 'Outfits', 'getOutfit', '$location', 
+  function ($scope, Users, getUser, Items, itemsData, Outfits, getOutfit, $location) {
+    $scope.user = getUser;
     $scope.outfit = getOutfit;
+    $scope.items = itemsData;
+
+
+    $scope.inArray = function(where, string){
+      var arr = $scope.outfit[where];
+      
+      if (arr.indexOf(string) == -1){
+        return false  
+      } else {
+        return true;
+      }
+    }
+
+    $scope.push = function(where, string){
+      $scope.outfit[where].push(string);
+      console.log($scope.outfit);
+    }
+
+    $scope.splice = function(where, string){
+    var arr = $scope.outfit[where];
+    var index = arr.indexOf(string);
+    $scope.outfit[where].splice(index, 1);
+    }
+
+    $scope.save = function(){
+      Outfits.update({id: $scope.outfit._id}, $scope.outfit);
+        $location.path('/outfit');
+    }
+
+    $scope.updateArr = function(where){
+    var string = $scope[where];
+    if(!string || string.length < 1) return;
+
+    var arr = $scope.user[where];
+    if(arr.indexOf(string) != -1) return;
+
+    $scope.user[where].push(string);
+    Users.update({id: $scope.user._id}, $scope.user);
+    $scope[where] = "";
+    }
+
+    $scope.remove = function(){
+      Outfits.remove({id: $scope.outfit._id});
+      $location.path('/outfit');
+    }
 }]);
