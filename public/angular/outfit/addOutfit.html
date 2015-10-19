@@ -10,13 +10,27 @@
 <button ng-click="newBlock()">new Item</button>
 
 <br>total: {{coll}}<br>
-<div ng-repeat="(id, arrs) in coll">
-	wihooo: {{id}} {{arrs}}
+<br><br>
+
+
+<button ng-click="randomize()">Create Outfit!</button>
+<button ng-click="saveOutfit()">Save!</button>
+
+
+<div ng-repeat="item in outfitItems">
+	<input type="checkbox" ng-model="miss" ng-change="clicking($index)">
+	{{item.img}}
 </div>
-	<br><br>
+
+<!-- <button ng-click="missMatch()">Miss Match!</button> -->
 
 
-<button ng-click="random()">Create Outfit!</button>
-
-{{random}}
-
+<ul ng-repeat="outfit in outfits">
+	<li>
+		<a href="#/outfit/{{outfit._id}}">
+		<div ng-repeat="itemId in outfit.items">
+			<div ng-repeat="item in items | filter : {_id: itemId} ">{{item.img}}</div>
+		</div>
+		</a>
+	</li>
+</ul>
