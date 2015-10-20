@@ -74,7 +74,6 @@ function ($scope, Items, $routeParams, Users, getUser, itemsData, Outfits, $loca
 
 	$scope.push = function(where, string){
   	$scope.item[where].push(string);
-    console.log($scope.item);
 	}
 
 	$scope.splice = function(where, string){
