@@ -4,7 +4,7 @@
 	<button ng-click="save()">Create</button><br><br>
 </form>
 <br>
-Search: <input type="text" ng-model="search.types">
+Search: <input type="text" ng-model="search">
   <ul>
     <li ng-repeat="item in items | filter: search">
         <a href="#/item/{{item._id}}">{{item.img}}</a> type: {{item.types}}, tags: {{item.tags}}

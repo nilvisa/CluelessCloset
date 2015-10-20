@@ -16,7 +16,7 @@ angular.module('outfit', [])
           return Users.get({id: userid});
         }],
         itemsData: ['Items', function(Items) {
-          return Items.query();
+          return Items.query({owner: "561cd088b360d5b022f3fcbe"});
         }],
         getOutfit: ['$route', 'Outfits', function($route, Outfits) {
           var id = $route.current.params.id;
@@ -30,8 +30,8 @@ angular.module('outfit', [])
   function ($scope, Users, Items, Outfits, $location) {
   	var userid = "561cd088b360d5b022f3fcbe";
     $scope.user = Users.get({id: userid});
-    $scope.items = Items.query();
-  	$scope.outfits = Outfits.query();
+    $scope.items = Items.query({owner: $scope.user});
+  	$scope.outfits = Outfits.query({owner: $scope.user});
   	$scope.blocks = [];
 
     if(!$scope.coll) {
@@ -164,7 +164,7 @@ angular.module('outfit', [])
     if(!string || string.length < 1) return;
 
     var arr = $scope.user[where];
-    if(arr.indexOf(string) != -1) return;
+    if(arr.indexOf(string) !== -1) return;
 
     $scope.user[where].push(string);
     Users.update({id: $scope.user._id}, $scope.user);

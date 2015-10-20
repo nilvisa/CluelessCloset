@@ -55,8 +55,8 @@ angular.module('item', [])
   }
 }])
 
-.controller('UpdateItemCtrl', ['$scope', 'Items', '$routeParams', 'Users', 'getUser', 'itemsData', 'Outfits', '$location', 'getItem', 
-function ($scope, Items, $routeParams, Users, getUser, itemsData, Outfits, $location, getItem) {
+.controller('UpdateItemCtrl', ['$scope', '$routeParams', 'Items', 'Users', 'getUser', 'itemsData', 'Outfits', '$location', 'getItem', 
+function ($scope, $routeParams, Items, Users, getUser, itemsData, Outfits, $location, getItem) {
   $scope.user = getUser;
 	$scope.items = itemsData;
   $scope.item = getItem;
@@ -92,7 +92,7 @@ function ($scope, Items, $routeParams, Users, getUser, itemsData, Outfits, $loca
     if(!string || string.length < 1) return;
 
     var arr = $scope.user[where];
-    if(arr.indexOf(string) != -1) return;
+    if(arr.indexOf(string) !== -1) return;
 
     $scope.user[where].push(string);
     Users.update({id: $scope.user._id}, $scope.user);
@@ -102,7 +102,7 @@ function ($scope, Items, $routeParams, Users, getUser, itemsData, Outfits, $loca
   $scope.remove = function(){
     for (var i = 0, len = $scope.outfits.length; i < len; i++) {
       var outfit = $scope.outfits[i];
-      if(outfit.items.indexOf($scope.item._id) != -1){
+      if(outfit.items.indexOf($scope.item._id) !== -1){
         outfit.items.splice($scope.item._id, 1);
         Outfits.update({id: outfit._id}, outfit);
       }

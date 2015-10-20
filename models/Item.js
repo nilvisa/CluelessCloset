@@ -5,7 +5,6 @@ var ItemSchema = new mongoose.Schema({
   tags: [],
   types: [],
   missmatch: [],
-  closet: [],
   owner: String
 });
 

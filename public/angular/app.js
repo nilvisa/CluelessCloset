@@ -1,4 +1,4 @@
-angular.module('CC', ['ngRoute', 'ngResource', 'user', 'item', 'outfit'])
+angular.module('CC', ['ngRoute', 'ngResource', 'user', 'item', 'outfit', 'closet'])
 
     //---------------
     // Services
@@ -47,7 +47,6 @@ angular.module('CC', ['ngRoute', 'ngResource', 'user', 'item', 'outfit'])
         'update': {method: 'PUT'}
       });
     }])
-
   
     //---------------
     // Routes

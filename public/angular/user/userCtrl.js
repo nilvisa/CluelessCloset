@@ -41,7 +41,7 @@ angular.module('user', [])
 	  if(!string || string.length < 1) return;
 
 	  var arr = $scope.user[where];
-	  if(arr.indexOf(string) != -1) return;
+	  if(arr.indexOf(string) !== -1) return;
 
 	  $scope.user[where].push(string);
 	  Users.update({id: $scope.user._id}, $scope.user);
@@ -66,7 +66,7 @@ angular.module('user', [])
     console.log(string + updated);
 
     angular.forEach($scope.items, function(item, key){
-      if(item[where].indexOf(string) != -1){
+      if(item[where].indexOf(string) !== -1){
         item[where].splice(string, 1);
         item[where].push(updated);
         Items.update({id: item._id}, item);
@@ -75,7 +75,7 @@ angular.module('user', [])
 
     if(where === 'tags'){
       angular.forEach($scope.outfits, function(outfit, key){
-        if(outfit[where].indexOf(string) != -1){
+        if(outfit[where].indexOf(string) !== -1){
           outfit[where].splice(string, 1);
           outfit[where].push(updated);
           Outfits.update({id: outfit._id}, outfit);
@@ -101,7 +101,7 @@ angular.module('user', [])
     var string = $scope.user[where][index];
 
     angular.forEach($scope.items, function(item, key){
-      if(item[where].indexOf(string) != -1){
+      if(item[where].indexOf(string) !== -1){
         item[where].splice(string, 1);
         Items.update({id: item._id}, item);
       }
@@ -109,7 +109,7 @@ angular.module('user', [])
 
     if(where === 'tags'){
       angular.forEach($scope.outfits, function(outfit, key){
-        if(outfit[where].indexOf(string) != -1){
+        if(outfit[where].indexOf(string) !== -1){
           outfit[where].splice(string, 1);
           Outfits.update({id: outfit._id}, outfit);
         }
