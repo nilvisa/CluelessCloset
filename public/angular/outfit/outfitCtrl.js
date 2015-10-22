@@ -30,10 +30,28 @@ angular.module('outfit', [])
   function ($scope, Users, Items, Outfits, $location) {
   	var userid = "561cd088b360d5b022f3fcbe";
     $scope.user = Users.get({id: userid});
-    $scope.items = Items.query({owner: $scope.user});
-  	$scope.outfits = Outfits.query({owner: $scope.user});
-  	$scope.blocks = [];
+    $scope.outfits = Outfits.query({owner: $scope.user});
+    $scope.blocks = [];
 
+    $scope.items = Items.query({owner: $scope.user}, function (items) {
+      var itemMap = _.indexBy(items, '_id');
+      $scope.missMatch = function() {
+        var realItems = _.map($scope.random, function(id) {
+          return itemMap[id];
+        });
+  
+        angular.forEach(realItems, function(item){
+          angular.forEach($scope.clicked, function(click){
+            if(item._id !== click){
+              item.missmatch.push(click);
+            }
+          });
+          Items.update({id: item._id}, item);
+        });      
+      }
+      
+    });
+ 
     if(!$scope.coll) {
       $scope.coll = [];
     }
@@ -91,29 +109,6 @@ angular.module('outfit', [])
       console.log($scope.clicked);
     }
 
-    // $scope.missMatch = function(){
-    //   for (var i = 0, len = $scope.random.length; i < len; i++) {
-    //     var randomId = $scope.random[i];
-    //     console.log('randomId:'+randomId);        
-    //     item = Items.get({id: randomId});
-    //     console.log('item:');
-    //     console.log(item);
-
-    //     for (var j = 0, len = $scope.clicked.length; j < len; j++) {
-    //     var clickedId = $scope.clicked[j];
-    //     console.log('clickedId: '+clickedId);
-
-    //       if(randomId != clickedId){
-    //         console.log('push');
-    //         item.missmatch.push(clickedId);
-    //         console.log('pushed');
-    //       }
-    //     }
-    //     console.log('varv');
-
-    //     Items.update({id: randomId}, item);      
-    //   }      
-    // }
 
     $scope.saveOutfit = function(){
       var outfit = new Outfits({items: $scope.random, owner: $scope.user._id});

@@ -3,7 +3,7 @@ In {{closet.name}} closet:
 <div ng-repeat="itemId in closet.items">
 	<div ng-repeat="item in items | filter: {_id: itemId} ">	
 		<a href="#/item/{{itemId}}">{{item.img}}</a>
-		<button ng-click="remove()">remove</button>
+		<button ng-click="remove(item._id)">remove</button>
 	</div>
 </div>
 
