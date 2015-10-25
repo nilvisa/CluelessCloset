@@ -1,10 +1,16 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var express       = require('express');
+var app           = express();
+var path          = require('path');
+var favicon       = require('serve-favicon');
+var logger        = require('morgan');
+var cookieParser  = require('cookie-parser');
+var bodyParser    = require('body-parser');
+var passport      = require('passport');
+var flash         = require('connect-flash');
+var morgan        = require('morgan');
+var session       = require('express-session');
 
+/* DB */
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/clueless', function(err) {
     if(err) {
@@ -14,15 +20,15 @@ mongoose.connect('mongodb://localhost/clueless', function(err) {
     }
 });
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var items = require('./routes/items');
+require('./config/passport')(passport); // pass passport for configuration
+
+var routes  = require('./routes/routes');
+var users   = require('./routes/users');
+var items   = require('./routes/items');
 var outfits = require('./routes/outfits');
 var closets = require('./routes/closets');
 
-var app = express();
-
-// view engine setup
+/* view engine setup */
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -34,8 +40,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+/* PASSPORT */
+app.use(session({ secret: 'YouseehowpickyIamaboutmyshoesandtheyonlygoonmyfeet' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+require('./routes/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+
+app.use('/routes', routes);
+// app.use('/users', users);
 app.use('/items', items);
 app.use('/outfits', outfits);
 app.use('/closets', closets);

@@ -1,42 +1,60 @@
 angular.module('user', [])
 
 .config(['$routeProvider', function ($routeProvider) {
-  $routeProvider
-   .when('/user', {
-      templateUrl: 'angular/user/addUser.html',
-      controller: 'CreateUserCtrl'
-    })
+   $routeProvider
 
     .when('/user/:id', {
       templateUrl: 'angular/user/showUser.html',
-      controller: 'UpdateUserCtrl'
+      controller: 'UpdateUserCtrl',
+      resolve: {
+        getUser: ['$route', 'Users', function($route, Users) {
+          var id = "561cd088b360d5b022f3fcbe";
+          return Users.get({id: id});
+        }],
+      }
    });
-}])
-
-.controller('CreateUserCtrl', ['$scope', 'Users', function ($scope, Users) {
-  $scope.users = Users.query();
-
-  $scope.save = function(){
-    if(!$scope.name || $scope.name.length < 1) return;
-      var user = new Users({name: $scope.name, email: $scope.email});
-
-      user.$save(function(){
-        $scope.users.push(user);
-        $scope.name = ''; // clear textbox
-        $scope.email = ''; // clear textbox
-      });
-  }
 
 }])
 
-.controller('UpdateUserCtrl', ['$scope', '$routeParams', 'Users', 'Items', 'Outfits', '$location', function ($scope, $routeParams, Users, Items, Outfits, $location) {
-	$scope.user = Users.get({id: $routeParams.id});
+
+// .controller('CreateUserCtrl', ['$scope', 'Users', function ($scope, Users) {
+//   $scope.users = Users.query();
+
+//   $scope.save = function(){
+//     if(!$scope.name || $scope.name.length < 1) return;
+//       var user = new Users({name: $scope.name, email: $scope.email});
+
+//       user.$save(function(){
+//         $scope.users.push(user);
+//         $scope.name = ''; // clear textbox
+//         $scope.email = ''; // clear textbox
+//       });
+//   }
+
+// }])
+
+
+
+.controller('UpdateUserCtrl', ['$scope', '$routeParams', 'Users', 'getUser', 'Items', 'Outfits', '$location', function ($scope, $routeParams, Users, getUser, Items, Outfits, $location) {
+	$scope.user = getUser;
 	$scope.users = Users.query();
   $scope.editing = [];
   $scope.items = Items.query({owner: $scope.user._id});
   $scope.outfits = Outfits.query({owner: $scope.user._id});
 
-	$scope.updateArr = function(where){
+      // $scope.missMatch = function() {
+      //   var realItems = _.map($scope.user.types, function(id) {
+      //     return itemMap[id];
+      //   });
+var typObj = _.indexBy($scope.user.types, 'value');
+$scope.types = _.map($scope.user.types, function(id) {
+        return typObj[id];
+      });
+
+console.log($scope.user.types);
+
+
+	$scope.addToArr = function(where){
 	  var string = $scope[where];
 	  if(!string || string.length < 1) return;
 
@@ -47,18 +65,6 @@ angular.module('user', [])
 	  Users.update({id: $scope.user._id}, $scope.user);
 	  $scope[where] = "";
 	}
-
-  // $scope.remove = function(){
-  //   for (var i = 0, len = $scope.outfits.length; i < len; i++) {
-  //     var outfit = $scope.outfits[i];
-  //     if(outfit.items.indexOf($scope.item._id) != -1){
-  //       outfit.items.splice($scope.item._id, 1);
-  //       Outfits.update({id: outfit._id}, outfit);
-  //     }
-  //   }
-  //   Items.remove({id: $scope.item._id});
-  //   $location.path('/item');
-  // }
 
   $scope.update = function(index, where) {
     var string = angular.copy($scope.editing[index]);

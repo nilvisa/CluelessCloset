@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="CC">
+  <head>
+    <title></title>
+    <link rel='stylesheet' href='/css/style.css' />
+
+    <!-- Angular Libraries -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-resource.min.js"></script>
+  <script src="//cdn.jsdelivr.net/satellizer/0.12.5/satellizer.min.js"></script>
+  <!--[if lte IE 9]>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/Base64/0.3.0/base64.min.js"></script>
+  <![endif]-->
+  </head>
+  <body>
+
+  <div class="container">
+
+    <div class="page-header text-center">
+        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+
+    <div class="row">
+
+        <!-- LOCAL INFORMATION -->
+        <div class="col-sm-6">
+            <div class="well">
+                <h3><span class="fa fa-user"></span> Local</h3>
+
+                    <p>
+                        <strong>id</strong>: <%= user._id %><br>
+                        <strong>email</strong>: <%= user.local.email %><br>
+                        <strong>password</strong>: <%= user.local.password %>
+                    </p>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+  <a href="/#/">start</a><br><br>
+
+	<ng-view></ng-view>
+		
+
+  <script src="angular/app.js"></script>
+  <script src="angular/user/userCtrl.js"></script>
+  <script src="angular/item/itemCtrl.js"></script>
+  <script src="angular/outfit/outfitCtrl.js"></script>
+	<script src="angular/closet/closetCtrl.js"></script>
+	    
+  </body>
+</html>

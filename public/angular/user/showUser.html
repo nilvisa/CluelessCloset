@@ -15,7 +15,7 @@
     <button ng-show="editing[$index]" ng-click="cancel($index, 'types')">cancel</button>
 </div>
 <input type="text" ng-model="types">
-<button ng-click="updateArr('types')">Add Tag</button><br><br>
+<button ng-click="addToArr('types')">Add Tag</button><br><br>
 
 <p>Tags:</p>
 <div ng-repeat="tag in user.tags">
@@ -29,7 +29,7 @@
     <button ng-show="editing[$index]" ng-click="cancel($index, 'tags')">cancel</button>
 </div>
 <input type="text" ng-model="tags">
-<button ng-click="updateArr('tags')">Add Tag</button><br><br>
+<button ng-click="addToArr('tags')">Add Tag</button><br><br>
 
 <div>
 <p>Araaay: {{user}} </p></div>

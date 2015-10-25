@@ -48,8 +48,7 @@ angular.module('outfit', [])
           });
           Items.update({id: item._id}, item);
         });      
-      }
-      
+      }      
     });
  
     if(!$scope.coll) {

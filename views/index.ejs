@@ -1,26 +1,25 @@
-<!DOCTYPE html>
-<html ng-app="CC">
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/css/style.css' />
+<!doctype html>
+<html>
+<head>
+    <title>Node Authentication</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <style>
+        body        { padding-top:80px; }
+    </style>
+</head>
+<body>
+<div class="container">
 
-    <!-- Angular Libraries -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-resource.min.js"></script>
-  </head>
-  <body>
-  <a href="/#/">start</a><br><br>
+    <div class="jumbotron text-center">
+        <h1><span class="fa fa-lock"></span> Node Authentication</h1>
 
-	<ng-view></ng-view>
-		
+        <p>Login or Register with:</p>
 
-  <script src="angular/app.js"></script>
-  <script src="angular/user/userCtrl.js"></script>
-  <script src="angular/item/itemCtrl.js"></script>
-  <script src="angular/outfit/outfitCtrl.js"></script>
-	<script src="angular/closet/closetCtrl.js"></script>
-	    
-  </body>
+        <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
+        <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
+    </div>
+
+</div>
+</body>
 </html>

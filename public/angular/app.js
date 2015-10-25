@@ -1,4 +1,4 @@
-angular.module('CC', ['ngRoute', 'ngResource', 'user', 'item', 'outfit', 'closet'])
+angular.module('CC', ['ngRoute', 'ngResource', 'satellizer', 'user', 'item', 'outfit', 'closet'])
 
 .factory('Users', ['$resource', function($resource){
   return $resource('/users/:id', null, {
@@ -53,4 +53,29 @@ angular.module('CC', ['ngRoute', 'ngResource', 'user', 'item', 'outfit', 'closet
 
 .config(['$resourceProvider', function($resourceProvider) {
   $resourceProvider.defaults.stripTrailingSlashes = false;
-}]);
+}])
+
+.config(['$authProvider', function($authProvider) {
+
+    $authProvider.facebook({
+      clientId: '1507548549565705'
+    });
+
+    $authProvider.google({
+      clientId: 'Google Client ID'
+    });
+
+    $authProvider.instagram({
+      clientId: 'Instagram Client ID'
+    });
+
+    // No additional setup required for Twitter
+
+    $authProvider.oauth2({
+      name: 'foursquare',
+      url: '/auth/foursquare',
+      clientId: 'Foursquare Client ID',
+      redirectUri: window.location.origin,
+      authorizationEndpoint: 'https://foursquare.com/oauth2/authenticate',
+    });
+}])
