@@ -60,19 +60,40 @@ module.exports = function(passport) {
                 return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
             } else {
 
-                // if there is no user with that email
-                // create the user
-                var newUser            = new User();
+                User.findOne({'facebook.email' : email }, function(err, user) {
+                    if (err) {
+                        return done(err);
+                    }
+                    if (user) {
+                         // user already exists and is logged in, we have to link accounts
+                        var user            = req.user; // pull the user out of the session
 
-                // set the user's local credentials
-                newUser.local.email    = email;
-                newUser.local.password = newUser.generateHash(password);
+                        // update the current users facebook credentials
+                        user.local.email    = email;
+                        user.local.password = user.generateHash(password);
 
-                // save the user
-                newUser.save(function(err) {
-                    if (err)
-                        throw err;
-                    return done(null, newUser);
+                        // save the user
+                        user.save(function(err) {
+                            if (err)
+                                throw err;
+                            return done(null, user);
+                        });
+                    } else {
+                        // if there is no user with that email
+                        // create the user
+                        var newUser            = new User();
+
+                        // set the user's local credentials
+                        newUser.local.email    = email;
+                        newUser.local.password = newUser.generateHash(password);
+
+                        // save the user
+                        newUser.save(function(err) {
+                            if (err)
+                                throw err;
+                            return done(null, newUser);
+                        });
+                    }
                 });
             }
 

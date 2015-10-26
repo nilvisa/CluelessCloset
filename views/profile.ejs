@@ -53,7 +53,8 @@
                 <!-- check if the user has this token (is the user authenticated with this social account) -->
                 <% if (user.facebook.token) { %>
                     <p>
-                        <strong>id</strong>: <%= user.facebook.id %><br>
+                        <strong>id</strong>: <%= user._id %><br>
+                        <strong>fb.id</strong>: <%= user.facebook.id %><br>
                         <strong>token</strong>: <%= user.facebook.token %><br>
                         <strong>email</strong>: <%= user.facebook.email %><br>
                         <strong>name</strong>: <%= user.facebook.name %><br>
