@@ -20,9 +20,7 @@ var UserSchema = mongoose.Schema({
         token        : String,
         email        : String,
         name         : String
-    },
-    types: [],
-    tags: []
+    }
 });
 
 // methods ======================
