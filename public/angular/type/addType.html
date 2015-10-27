@@ -1,0 +1,17 @@
+<div ng-show="!types.length"> 
+	<button ng-click="addStarter()">Add starter kit</button>
+</div>
+
+
+<div ng-repeat="type in types">
+	<div ng-repeat="(parent, array) in type">
+		<span ng-hide="parent == 'owner' || parent == '_id' || parent == '__v'">
+			<h2>{{parent}}</h2>
+			<div ng-repeat="child in array track by $index">
+				{{child}}
+			</div>
+			<input type="text" ng-model="types[parent]">
+			<button ng-click="addToArr(parent)">Add type</button><br><br>
+		</span>
+	</div>
+</div>

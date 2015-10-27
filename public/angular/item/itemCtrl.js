@@ -2,15 +2,10 @@ angular.module('item', [])
 
 .config(['$routeProvider', function ($routeProvider) {
   $routeProvider
-
-  .when('/item', {
+    .when('/item', {
       templateUrl: 'angular/item/addItem.html',
       controller: 'CreateItemCtrl',
       resolve: {
-        getUser: ['$route', 'Users', function($route, Users) {
-          var id = "561cd088b360d5b022f3fcbe";
-          return Users.get({id: id});
-        }],
         itemsData: ['Items', function(Items) {
           return Items.query();
         }]
@@ -21,10 +16,6 @@ angular.module('item', [])
     templateUrl: 'angular/item/showItem.html',
     controller: 'UpdateItemCtrl',
     resolve: {
-      getUser: ['$route', 'Users', function($route, Users) {
-        var id = "561cd088b360d5b022f3fcbe";
-        return Users.get({id: id});
-      }],
       itemsData: ['Items', function(Items) {
         return Items.query();
       }],
@@ -36,9 +27,8 @@ angular.module('item', [])
    });   
 }])
 
-.controller('CreateItemCtrl', ['$scope', 'Items', 'itemsData', 'getUser', '$location', function ($scope, Items, itemsData, getUser, $location) {
-  $scope.items = itemsData;
-  $scope.user = getUser;
+.controller('CreateItemCtrl', ['$scope', 'Items', 'itemsData', '$location', function ($scope, Items, itemsData, $location) {
+$scope.items = itemsData;
 
   $scope.save = function(){
     if(!$scope.img || $scope.img.length < 1) return;
@@ -46,7 +36,7 @@ angular.module('item', [])
       	img: $scope.img,
       	tags: [],
       	types: [],
-      	owner: $scope.user._id});
+      	owner: $scope.userId});
 
       item.$save(function(){
       	$scope.items.push(item);
@@ -55,9 +45,8 @@ angular.module('item', [])
   }
 }])
 
-.controller('UpdateItemCtrl', ['$scope', '$routeParams', 'Items', 'Users', 'getUser', 'itemsData', 'Outfits', '$location', 'getItem', 
-function ($scope, $routeParams, Items, Users, getUser, itemsData, Outfits, $location, getItem) {
-  $scope.user = getUser;
+.controller('UpdateItemCtrl', ['$scope', '$routeParams', 'Items', 'itemsData', 'Outfits', '$location', 'getItem', 
+function ($scope, $routeParams, Items, itemsData, Outfits, $location, getItem) {
 	$scope.items = itemsData;
   $scope.item = getItem;
   $scope.outfits = Outfits.query();

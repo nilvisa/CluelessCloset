@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 var mongoose = require('mongoose');
-var Closet = require('../models/Closet.js');
+var Tag = require('../models/Tag.js');
 
 /* GET */
 router.get('/', function(req, res, next) {
-  Closet.find({owner : req.user._id}, function (err, users) {
+  Tag.find({owner : req.user._id}, function (err, users) {
     if (err) return next(err);
     res.json(users);
   });
@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 
 /* POST */
 router.post('/', function(req, res, next) {
-  Closet.create(req.body, function (err, post) {
+  Tag.create(req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
@@ -22,7 +22,7 @@ router.post('/', function(req, res, next) {
 
 /* GET /id */
 router.get('/:id', function(req, res, next) {
-  Closet.findById(req.params.id, function (err, post) {
+  Tag.findById(req.params.id, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
@@ -30,7 +30,7 @@ router.get('/:id', function(req, res, next) {
 
 /* PUT /:id */
 router.put('/:id', function(req, res, next) {
-  Closet.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+  Tag.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
@@ -38,7 +38,7 @@ router.put('/:id', function(req, res, next) {
 
 /* DELETE /:id */
 router.delete('/:id', function(req, res, next) {
-  Closet.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+  Tag.findByIdAndRemove(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });

@@ -6,7 +6,7 @@ var Outfit = require('../models/Outfit.js');
 
 /* GET */
 router.get('/', function(req, res, next) {
-  Outfit.find(function (err, users) {
+  Outfit.find({owner : req.user._id}, function (err, users) {
     if (err) return next(err);
     res.json(users);
   });

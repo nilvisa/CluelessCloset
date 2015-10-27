@@ -9,80 +9,49 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-resource.min.js"></script>
-  <script src="//cdn.jsdelivr.net/satellizer/0.12.5/satellizer.min.js"></script>
-  <!--[if lte IE 9]>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/Base64/0.3.0/base64.min.js"></script>
-  <![endif]-->
   </head>
   <body>
 
   <div class="container">
 
-    <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
         <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-    </div>
-
-    <div class="row">
-
        <!-- LOCAL INFORMATION -->
-        <div class="col-sm-6">
-            <div class="well">
-                <h3><span class="fa fa-user"></span> Local</h3>
-
-                <% if (user.local.email) { %>
-                    <p>
-                        <strong>id</strong>: <%= user._id %><br>
-                        <strong>email</strong>: <%= user.local.email %><br>
-                        <strong>password</strong>: <%= user.local.password %>
-                    </p>
-                    
-                    <a href="/unlink/local" class="btn btn-default">Unlink</a>
-                <% } else { %>
-                    <a href="/connect/local" class="btn btn-default">Connect Local</a>
-                <% } %>
-
-            </div>
-        </div>
+     <% if (user.local.email) { %>
+      <p>
+          <strong>id</strong>: <%= user._id %><br>
+      </p>
+          
+          <a href="/unlink/local" class="btn btn-default">Unlink</a>
+      <% } else { %>
+          <a href="/connect/local" class="btn btn-default">Connect Local</a>
+      <% } %>
 
         <!-- FACEBOOK INFORMATION -->
-        <div class="col-sm-6">
-            <div class="well">
-                <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
+          <!-- check if the user has this token (is the user authenticated with this social account) -->
+          <% if (user.facebook.token) { %>
+              <p>
+                  <strong>id</strong>: <%= user._id %><br>
+                  <strong>name</strong>: <%= user.facebook.name %><br>
+              </p>
 
-                <!-- check if the user has this token (is the user authenticated with this social account) -->
-                <% if (user.facebook.token) { %>
-                    <p>
-                        <strong>id</strong>: <%= user._id %><br>
-                        <strong>fb.id</strong>: <%= user.facebook.id %><br>
-                        <strong>token</strong>: <%= user.facebook.token %><br>
-                        <strong>email</strong>: <%= user.facebook.email %><br>
-                        <strong>name</strong>: <%= user.facebook.name %><br>
-                    </p>
-
-                    <a href="/unlink/facebook" class="btn btn-primary">Unlink</a>
-                <% } else { %>
-                    <a href="/connect/facebook" class="btn btn-primary">Connect Facebook</a>
-                <% } %>
-
-            </div>
-        </div>
-    </div>
-
+              <a href="/unlink/facebook" class="btn btn-primary">Unlink</a>
+          <% } else { %>
+              <a href="/connect/facebook" class="btn btn-primary">Connect Facebook</a>
+          <% } %>
    
-
 </div>
 
-  <a href="/#/">start</a><br><br>
-
-	<ng-view></ng-view>
+  <a href="/profile#/">start</a><br><br>
+  
+	<ng-view>
+  <div ng-init="userId = '<%= user._id %>'"></div>
+  </ng-view>
 		
 
   <script src="angular/app.js"></script>
-  <script src="angular/user/userCtrl.js"></script>
   <script src="angular/item/itemCtrl.js"></script>
-  <script src="angular/outfit/outfitCtrl.js"></script>
-	<script src="angular/closet/closetCtrl.js"></script>
+  <script src="angular/type/typeCtrl.js"></script>
+  <script src="angular/tag/tagCtrl.js"></script>
 	    
   </body>
 </html>

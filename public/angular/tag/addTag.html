@@ -1,0 +1,17 @@
+<div ng-show="!tags.length"> 
+	<button ng-click="addStarter()">Add starter kit</button>
+</div>
+
+
+<div ng-repeat="tag in tags">
+	<div ng-repeat="(parent, array) in tag">
+		<span ng-hide="parent == 'owner' || parent == '_id' || parent == '__v'">
+			<h2>{{parent}}</h2>
+			<div ng-repeat="child in array track by $index">
+				{{child}}
+			</div>
+			<input type="text" ng-model="tags[parent]">
+			<button ng-click="addToArr(parent)">Add Tag</button><br><br>
+		</span>
+	</div>
+</div>

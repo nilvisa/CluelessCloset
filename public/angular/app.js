@@ -1,15 +1,4 @@
-angular.module('CC', ['ngRoute', 'ngResource', 'satellizer', 'user', 'item', 'outfit', 'closet'])
-
-.factory('Users', ['$resource', function($resource){
-  return $resource('/users/:id', null, {
-    'get': {method: 'GET'},
-    'save': {method: 'POST'},
-    'query': {method: 'GET', isArray: true},
-    'remove': {method: 'DELETE'},
-    'delete': {method: 'DELETE'},
-    'update': {method: 'PUT'}
-  });
-}])
+angular.module('CC', ['ngRoute', 'ngResource', 'item', 'type', 'tag',])
 
 .factory('Items', ['$resource', function($resource){
   return $resource('/items/:id', null, {
@@ -44,12 +33,41 @@ angular.module('CC', ['ngRoute', 'ngResource', 'satellizer', 'user', 'item', 'ou
   });
 }])
 
+.factory('Types', ['$resource', function($resource){
+  return $resource('/types/:id', null, {
+    'get': {method: 'GET'},
+    'save': {method: 'POST'},
+    'query': {method: 'GET', isArray: true},
+    'remove': {method: 'DELETE'},
+    'delete': {method: 'DELETE'},
+    'update': {method: 'PUT'}
+  });
+}])
+
+.factory('Tags', ['$resource', function($resource){
+  return $resource('/tags/:id', null, {
+    'get': {method: 'GET'},
+    'save': {method: 'POST'},
+    'query': {method: 'GET', isArray: true},
+    'remove': {method: 'DELETE'},
+    'delete': {method: 'DELETE'},
+    'update': {method: 'PUT'}
+  });
+}])
+
 
 .config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/', {
       templateUrl: 'angular/start.html'
     })
 }])
+
+.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider.when('/_=_', {
+      templateUrl: 'angular/start.html'
+    })
+}])
+
 
 .config(['$resourceProvider', function($resourceProvider) {
   $resourceProvider.defaults.stripTrailingSlashes = false;

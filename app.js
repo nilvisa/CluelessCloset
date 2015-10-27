@@ -23,10 +23,11 @@ mongoose.connect('mongodb://localhost/clueless', function(err) {
 require('./config/passport')(passport); // pass passport for configuration
 
 var routes  = require('./routes/routes');
-var users   = require('./routes/users');
 var items   = require('./routes/items');
 var outfits = require('./routes/outfits');
 var closets = require('./routes/closets');
+var types = require('./routes/types');
+var tags = require('./routes/tags');
 
 /* view engine setup */
 app.set('views', path.join(__dirname, 'views'));
@@ -48,10 +49,11 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 require('./routes/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 app.use('/routes', routes);
-// app.use('/users', users);
 app.use('/items', items);
 app.use('/outfits', outfits);
 app.use('/closets', closets);
+app.use('/types', types);
+app.use('/tags', tags);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
