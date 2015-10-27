@@ -5,15 +5,22 @@
 </div>
 
 tag:
-<ul>
-	<li ng-repeat="tag in user.tags | orderBy:'toString()'">
-    	<button ng-show="!inArray('tags', tag)" ng-click="push('tags', tag)">add {{tag}}</button>
-    	<button ng-show="inArray('tags', tag)" ng-click="splice('tags', tag)">remove {{tag}}</button>
-	</li>
-</ul>
-<input type="text" ng-model="tags">
-<button ng-click="updateArr('tags')">Add Tag</button><br><br>
-<br>
+<div ng-repeat="tag in tags">
+	<div ng-repeat="(parent, array) in tag">
+		<span ng-hide="parent == 'owner' || parent == '_id' || parent == '__v'">
+			<h4>{{parent}}</h4>
+			<div ng-repeat="child in array track by $index">
+				<button ng-show="!inArray('tags', child)" ng-click="push('tags', child)">add {{child}}</button>
+	    		<button ng-show="inArray('tags', child)" ng-click="splice('tags', child)">REMOVE {{child}}</button>
+			</div>
+				<!-- <input type="text" ng-model="types[parent]">
+				<button ng-click="addToArr(parent)">Add type</button><br><br> -->
+		</span>
+	</div>
+</div>
+<br><br>
+
+
 {{outfit}}<br><br>
 
 

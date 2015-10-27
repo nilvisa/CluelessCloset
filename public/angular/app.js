@@ -1,4 +1,4 @@
-angular.module('CC', ['ngRoute', 'ngResource', 'item', 'type', 'tag',])
+angular.module('CC', ['ngRoute', 'ngResource', 'item', 'outfit', 'type', 'tag'])
 
 .factory('Items', ['$resource', function($resource){
   return $resource('/items/:id', null, {

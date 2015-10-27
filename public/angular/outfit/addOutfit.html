@@ -1,9 +1,16 @@
-<div ng-repeat="block in blocks" ng-controller="CreateOutfitCtrl">
+<div ng-repeat="block in blocks">
 	Item {{block}}:
-	<select ng-init="block" ng-model="option">
-		<option ng-repeat="type in user.types | orderBy:'toString()'" value="{{type}}">{{type}}</option>
-	</select> 
-	<button ng-click="findItems()">ok</button>
+<div ng-repeat="type in types">
+	<div ng-repeat="(parent, array) in type">
+		<span ng-hide="parent == 'owner' || parent == '_id' || parent == '__v'">
+			{{parent}}
+			<select ng-init="block" ng-model="types.add[block]">
+				<option ng-repeat="child in array track by $index" value="{{child}}">{{child}}</option>
+			</select> 
+		</span>
+	</div>
+</div>
+	<button ng-click="findItems(block)">ok</button>
 	<br>
 	{{arr}}
 </div>
@@ -11,7 +18,6 @@
 
 <br>total: {{coll}}<br>
 <br><br>
-
 
 <button ng-click="randomize()">Create Outfit!</button>
 <button ng-click="saveOutfit()">Save!</button>
