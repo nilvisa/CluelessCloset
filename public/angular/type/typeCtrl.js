@@ -6,19 +6,19 @@ angular.module('type', [])
       templateUrl: 'angular/type/addType.html',
       controller: 'CreateTypeCtrl',
       resolve: {
-        tagData: ['Types', function(Types) {
+        typesData: ['Types', function(Types) {
           return Types.query();
         }]
       }
    });   
 }])
 
-.controller('CreateTypeCtrl', ['$scope', 'Types', 'tagData', '$location', function ($scope, Types, tagData, $location) {
-	$scope.types = tagData;
+.controller('CreateTypeCtrl', ['$scope', 'Types', 'typesData', '$location', function ($scope, Types, typesData, $location) {
+	$scope.types = typesData;
 
 	$scope.addStarter = function(){
 		var newTypes = new Types({
-			top: ['tank', 't-shirt', 'blouse', 'shirt', 'jumper', 'sweater', 'cardigan', 'kimono', 'jacket', 'blazer', 'waistcoat', 'dress', 'tunic'],
+			top: ['tank', 't-shirt', 'blouse', 'shirt', 'jumper', 'sweatshirt', 'sweater', 'cardigan', 'kimono', 'jacket', 'blazer', 'waistcoat', 'dress', 'tunic'],
 			bottom: ['jeans', 'trousers', 'leggings', 'tights', 'shorts', 'skirt'],
 			shoes: ['sneakers', 'boots', 'heels', 'flats', 'sandals'],
 			accessories: ['hat', 'scarf', 'necklace', 'bracelet', 'watch', 'earrings', 'purse'],

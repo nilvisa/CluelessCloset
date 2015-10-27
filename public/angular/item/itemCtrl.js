@@ -23,13 +23,20 @@ angular.module('item', [])
         var id = $route.current.params.id;
         return Items.get({id: id});
       }],
+      typesData: ['Types', function(Types) {
+        return Types.query();
+      }],
+      tagsData: ['Tags', function(Tags) {
+        return Tags.query();
+      }]
     }
    });   
 }])
 
-.controller('CreateItemCtrl', ['$scope', 'Items', 'itemsData', '$location', function ($scope, Items, itemsData, $location) {
-$scope.items = itemsData;
-
+.controller('CreateItemCtrl', ['$scope', 'Items', 'itemsData', '$location',
+ function ($scope, Items, itemsData, $location) {
+  $scope.items = itemsData;
+  
   $scope.save = function(){
     if(!$scope.img || $scope.img.length < 1) return;
       var item = new Items({
@@ -45,11 +52,14 @@ $scope.items = itemsData;
   }
 }])
 
-.controller('UpdateItemCtrl', ['$scope', '$routeParams', 'Items', 'itemsData', 'Outfits', '$location', 'getItem', 
-function ($scope, $routeParams, Items, itemsData, Outfits, $location, getItem) {
+.controller('UpdateItemCtrl', ['$scope', '$routeParams', 'Items', 'itemsData', 'Outfits', 'typesData', 'tagsData', '$location', 'getItem', 
+function ($scope, $routeParams, Items, itemsData, Outfits, typesData, tagsData, $location, getItem) {
 	$scope.items = itemsData;
   $scope.item = getItem;
   $scope.outfits = Outfits.query();
+  $scope.types = typesData;
+  $scope.tags = tagsData;
+
 
 	$scope.inArray = function(where, string){
 		var arr = $scope.item[where];
@@ -75,18 +85,6 @@ function ($scope, $routeParams, Items, itemsData, Outfits, $location, getItem) {
 		Items.update({id: $scope.item._id}, $scope.item);
     	$location.path('/item');
 	}
-
-  $scope.updateArr = function(where){
-    var string = $scope[where];
-    if(!string || string.length < 1) return;
-
-    var arr = $scope.user[where];
-    if(arr.indexOf(string) !== -1) return;
-
-    $scope.user[where].push(string);
-    Users.update({id: $scope.user._id}, $scope.user);
-    $scope[where] = "";
-  }
 
   $scope.remove = function(){
     for (var i = 0, len = $scope.outfits.length; i < len; i++) {

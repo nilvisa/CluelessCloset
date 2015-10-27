@@ -21,8 +21,6 @@ var UserSchema = mongoose.Schema({
         email        : String,
         name         : String
     },
-    types: [],
-    tags: []
 });
 
 // methods ======================

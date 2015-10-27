@@ -6,15 +6,15 @@ angular.module('tag', [])
       templateUrl: 'angular/tag/addTag.html',
       controller: 'CreateTagCtrl',
       resolve: {
-        tagData: ['Tags', function(Tags) {
+        tagsData: ['Tags', function(Tags) {
           return Tags.query();
         }]
       }
    });   
 }])
 
-.controller('CreateTagCtrl', ['$scope', 'Tags', 'tagData', '$location', function ($scope, Tags, tagData, $location) {
-	$scope.tags = tagData;
+.controller('CreateTagCtrl', ['$scope', 'Tags', 'tagsData', '$location', function ($scope, Tags, tagsData, $location) {
+	$scope.tags = tagsData;
 
 	$scope.addStarter = function(){
 		var newTags = new Tags({
