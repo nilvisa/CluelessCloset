@@ -2,7 +2,7 @@ In {{closet.name}} closet:
 
 <div ng-repeat="itemId in closet.items">
 	<div ng-repeat="item in items | filter: {_id: itemId} ">	
-		<a href="#/item/{{itemId}}">{{item.img}}</a>
+		<a href="#/item/{{itemId}}"><img ng-src="./uploads/{{item.img}}" width="200px"></a>
 		<button ng-click="remove(item._id)">remove</button>
 	</div>
 </div>
@@ -14,7 +14,7 @@ Search: <input type="text" ng-model="search"> <br>
 <div ng-repeat="item in inCloset(items, $index) | filter: search">
 	<div>
 		<input type="checkbox" ng-model="click" ng-change="clicking(item._id)">
-		{{item.img}}
+		<img ng-src="./uploads/{{item.img}}" width="100px">
 	</div>
 </div>
 <button ng-click="add()">Add to closet</button>

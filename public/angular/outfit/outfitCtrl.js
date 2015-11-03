@@ -52,7 +52,9 @@ angular.module('outfit', [])
           });
           Items.update({id: item._id}, item);
         });      
-      }      
+      }
+      $scope.clicked = [];
+      console.log($scope.clicked + 'missmatchat!');      
     });
  
     if(!$scope.coll) {
@@ -105,8 +107,8 @@ angular.module('outfit', [])
       if($scope.clicked.indexOf(item._id) == -1){
         $scope.clicked.push(item._id);
       } else {
-        var index = $scope.clicked.indexOf(item._id);
-        $scope.clicked.splice(index, 1);
+        var index2 = $scope.clicked.indexOf(item._id);
+        $scope.clicked.splice(index2, 1);
       }
 
       console.log($scope.clicked);

@@ -25,7 +25,7 @@
 
 <div ng-repeat="item in outfitItems">
 	<input type="checkbox" ng-model="miss" ng-change="clicking($index)">
-	{{item.img}}
+	<img ng-src="./uploads/{{item.img}}" width="100px">
 </div>
 
 <button ng-click="missMatch()">Miss Match!</button>
@@ -37,7 +37,7 @@
 		<div ng-repeat="itemId in outfit.items">
 		<a href="#/outfit/{{outfit._id}}">
 			<div ng-repeat="item in items | filter : {_id: itemId} ">
-				{{item.img}}
+				<img ng-src="./uploads/{{item.img}}" width="100px">
 			</div>
 		</a>
 		</div>

@@ -33,23 +33,27 @@ angular.module('item', [])
    });   
 }])
 
-.controller('CreateItemCtrl', ['$scope', 'Items', 'itemsData', '$location',
- function ($scope, Items, itemsData, $location) {
+.controller('CreateItemCtrl', ['$scope', 'multipartForm', 'Items', 'itemsData', '$location',
+function ($scope, multipartForm, Items, itemsData, $location) {
   $scope.items = itemsData;
-  
-  $scope.save = function(){
-    if(!$scope.img || $scope.img.length < 1) return;
-      var item = new Items({
-      	img: $scope.img,
-      	tags: [],
-      	types: [],
-      	owner: $scope.userId});
+  $scope.newItem = {};
+
+  $scope.Submit = function(){
+    var item = new Items({
+      img: $scope.newItem.img.name,
+      tags: [],
+      types: [],
+      owner: $scope.userId});
 
       item.$save(function(){
-      	$scope.items.push(item);
-      	$location.path('/item/'+item._id);
-      })
+        var uploadUrl = '/items/upload/'+item._id;
+        multipartForm.post(uploadUrl, $scope.newItem);
+      });
+      
+      $scope.items.push(item);
+      // $location.path('/item/'+item._id);
   }
+
 }])
 
 .controller('UpdateItemCtrl', ['$scope', '$routeParams', 'Items', 'itemsData', 'Outfits', 'typesData', 'tagsData', '$location', 'getItem', 

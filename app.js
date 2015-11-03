@@ -9,6 +9,8 @@ var passport      = require('passport');
 var flash         = require('connect-flash');
 var morgan        = require('morgan');
 var session       = require('express-session');
+var multer        = require('multer');
+var upload        = multer({ dest: 'public/uploads/'});
 
 /* DB */
 var mongoose = require('mongoose');
@@ -20,14 +22,42 @@ mongoose.connect('mongodb://localhost/clueless', function(err) {
     }
 });
 
-require('./config/passport')(passport); // pass passport for configuration
-
 var routes  = require('./routes/routes');
 var items   = require('./routes/items');
 var outfits = require('./routes/outfits');
 var closets = require('./routes/closets');
-var types = require('./routes/types');
-var tags = require('./routes/tags');
+var types   = require('./routes/types');
+var tags    = require('./routes/tags');
+
+/* IMG-upload */
+app.use(multer({dest: 'public/uploads'}));
+// app.use(multer({ 
+//     dest: 'public/uploads/',
+//     rename: function (fieldname, filename) {
+//         return filename+Date.now();
+//     },
+//     onFileUploadStart: function (file) {
+//         console.log(file.originalname + ' is starting ...');
+//     },
+//     onFileUploadComplete: function (file) {
+//         console.log(file.fieldname + ' uploaded to  ' + file.path)
+//     }
+// }));
+
+// app.post('/item/', function(req,res){
+//     var theFile = req.files.filename.mimetype;
+//     if(theFile == 'image/jpeg' || theFile == 'image/jpg' || theFile == 'image/png') {
+//         upload(req,res,function(err) {
+//             if(err) {
+//                 return res.end("Error uploading file.");
+//             }
+
+//             res.end("File is uploaded");
+//         });
+//     } else {
+//     return res.end('nejnej');
+//    }
+// });
 
 /* view engine setup */
 app.set('views', path.join(__dirname, 'views'));
@@ -42,6 +72,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 /* PASSPORT */
+require('./config/passport')(passport); // pass passport for configuration
 app.use(session({ secret: 'YouseehowpickyIamaboutmyshoesandtheyonlygoonmyfeet' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions

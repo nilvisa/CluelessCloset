@@ -20,6 +20,26 @@ router.post('/', function(req, res, next) {
   });
 });
 
+router.post('/upload/:id', function(req, res){
+  console.log('hej'+req.body);
+  console.log(req.files);
+  console.log(req.files.name);
+  Item.findByIdAndUpdate(req.params.id, { 
+    $set: { 
+      'img': req.files.img.name     
+     }}, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+//   Item.findByIdAndUpdate(req.params.id,
+//   {$set: {'img': req.files.name}},
+//      function (err, post) {
+//     if (err) return next(err);
+//     res.json(post);
+//   res.json({sucess: true});
+// });
+
 /* GET /id */
 router.get('/:id', function(req, res, next) {
   Item.findById(req.params.id, function (err, post) {
