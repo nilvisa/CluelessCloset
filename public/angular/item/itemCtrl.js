@@ -14,6 +14,26 @@ angular.module('item', [])
 
   .when('/item/:id', {
     templateUrl: 'angular/item/showItem.html',
+    controller: 'ShowItemCtrl',
+    resolve: {
+      itemsData: ['Items', function(Items) {
+        return Items.query();
+      }],
+      getItem: ['$route', 'Items', function($route, Items) {
+        var id = $route.current.params.id;
+        return Items.get({id: id});
+      }],
+      typesData: ['Types', function(Types) {
+        return Types.query();
+      }],
+      tagsData: ['Tags', function(Tags) {
+        return Tags.query();
+      }]
+    }
+   }) 
+
+  .when('/item/edit/:id', {
+    templateUrl: 'angular/item/tagItem.html',
     controller: 'UpdateItemCtrl',
     resolve: {
       itemsData: ['Items', function(Items) {
@@ -30,7 +50,7 @@ angular.module('item', [])
         return Tags.query();
       }]
     }
-   });   
+   });  
 }])
 
 .controller('CreateItemCtrl', ['$scope', 'multipartForm', 'Items', 'itemsData', '$location',
@@ -48,10 +68,10 @@ function ($scope, multipartForm, Items, itemsData, $location) {
       item.$save(function(){
         var uploadUrl = '/items/upload/'+item._id;
         multipartForm.post(uploadUrl, $scope.newItem);
+        $location.path('/item/edit/'+item._id);
       });
-      
-      $scope.items.push(item);
-      // $location.path('/item/'+item._id);
+
+      // $scope.items.push(item);
   }
 
 }])
@@ -86,7 +106,7 @@ function ($scope, $routeParams, Items, itemsData, Outfits, typesData, tagsData, 
 	}
 
 	$scope.save = function(){
-		Items.update({id: $scope.item._id}, $scope.item);
+		Items.update({id: $scope.item._id}, {tags: $scope.item.tags, types: $scope.item.types});
     	$location.path('/item');
 	}
 
@@ -102,4 +122,14 @@ function ($scope, $routeParams, Items, itemsData, Outfits, typesData, tagsData, 
     $location.path('/item');
   }
 
-}]);
+}])
+
+.controller('ShowItemCtrl', ['$scope', '$routeParams', 'Items', 'itemsData', 'Outfits', 'typesData', 'tagsData', '$location', 'getItem', 
+function ($scope, $routeParams, Items, itemsData, Outfits, typesData, tagsData, $location, getItem) {
+  $scope.items = itemsData;
+  $scope.item = getItem;
+  $scope.outfits = Outfits.query();
+  $scope.types = typesData;
+  $scope.tags = tagsData;
+
+  }]);

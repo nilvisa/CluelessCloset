@@ -31,33 +31,6 @@ var tags    = require('./routes/tags');
 
 /* IMG-upload */
 app.use(multer({dest: 'public/uploads'}));
-// app.use(multer({ 
-//     dest: 'public/uploads/',
-//     rename: function (fieldname, filename) {
-//         return filename+Date.now();
-//     },
-//     onFileUploadStart: function (file) {
-//         console.log(file.originalname + ' is starting ...');
-//     },
-//     onFileUploadComplete: function (file) {
-//         console.log(file.fieldname + ' uploaded to  ' + file.path)
-//     }
-// }));
-
-// app.post('/item/', function(req,res){
-//     var theFile = req.files.filename.mimetype;
-//     if(theFile == 'image/jpeg' || theFile == 'image/jpg' || theFile == 'image/png') {
-//         upload(req,res,function(err) {
-//             if(err) {
-//                 return res.end("Error uploading file.");
-//             }
-
-//             res.end("File is uploaded");
-//         });
-//     } else {
-//     return res.end('nejnej');
-//    }
-// });
 
 /* view engine setup */
 app.set('views', path.join(__dirname, 'views'));
