@@ -40,9 +40,10 @@ module.exports = function(passport) {
         // by default, local strategy uses username and password, we will override with email
         usernameField : 'email',
         passwordField : 'password',
+        nameField : 'name',
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
-    function(req, email, password, done) {
+    function(req, email, password, done, name) {
 
         // asynchronous
         // User.findOne wont fire unless data is sent back
@@ -69,6 +70,7 @@ module.exports = function(passport) {
                         var user            = req.user; // pull the user out of the session
 
                         // update the current users facebook credentials
+                        user.local.name     = name;
                         user.local.email    = email;
                         user.local.password = user.generateHash(password);
 
@@ -84,8 +86,10 @@ module.exports = function(passport) {
                         var newUser            = new User();
 
                         // set the user's local credentials
+                        newUser.local.name     = name;
                         newUser.local.email    = email;
                         newUser.local.password = newUser.generateHash(password);
+                        newUser.closet         = '';
 
                         // save the user
                         newUser.save(function(err) {
@@ -196,6 +200,8 @@ module.exports = function(passport) {
                         newUser.facebook.token = token; // we will save the token that facebook provides to the user                    
                         newUser.facebook.name  = profile.displayName; // look at the passport user profile to see how names are returned
                         newUser.facebook.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
+                        newUser.closet         = '';
+
 
                         // save our user to the database
                         newUser.save(function(err) {

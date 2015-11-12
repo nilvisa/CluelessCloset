@@ -42,7 +42,6 @@ angular.module('closet', [])
 
       closet.$save(function(){
         $scope.closets.push(closet);
-        $location.path('/closet/'+closet._id);
       })
   }
 
@@ -54,38 +53,48 @@ function ($scope, $routeParams, Items, itemsData, Closets, getCloset, closetsDat
   $scope.closet = getCloset;
   $scope.items = itemsData;
 
-  if(!$scope.clicked) {
-    $scope.clicked = [];
+  if(!$scope.removeArray) {
+    $scope.removeArray = [];
   }
 
-  $scope.inCloset = function () {
+  if(!$scope.addArray) {
+    $scope.addArray = [];
+  }
+
+  $scope.setCloset = function(){
+  	
+  }
+
+  $scope.inCloset = function (){
     return $scope.items.filter(function (item) {
       return $scope.closet.items.indexOf(item._id) === -1;
     });
   };
 
-  $scope.clicking = function(item){
-    if($scope.clicked.indexOf(item) == -1){
-      $scope.clicked.push(item);
+  $scope.clicking = function(array, item){
+    if($scope[array].indexOf(item) == -1){
+      $scope[array].push(item);
     } else {
-      var index = $scope.clicked.indexOf(item);
-      $scope.clicked.splice(index, 1);
+      var index = $scope[array].indexOf(item);
+      $scope[array].splice(index, 1);
     }
-
-    console.log($scope.clicked);
   }
 
-  $scope.add = function(index){
-    angular.forEach($scope.clicked, function(item, key){
+  $scope.add = function(){
+    angular.forEach($scope.addArray, function(item, key){
       $scope.closet.items.push(item);
       Closets.update({id: $scope.closet._id}, $scope.closet);
-      $scope.clicked = [];
+      $scope.addArray = [];
     });
   }
 
-  $scope.remove = function(item){
-  	$scope.closet.items.splice(item, 1);
-    Closets.update({id: $scope.closet._id}, $scope.closet);
+  $scope.remove = function(){
+  	angular.forEach($scope.removeArray, function(item, key){
+      var index = $scope.closet.items.indexOf(item);
+      $scope.closet.items.splice(index, 1);
+      Closets.update({id: $scope.closet._id}, $scope.closet);
+      $scope.removeArray = [];
+    });
   }
 
     $scope.removeCloset = function(){

@@ -1,21 +1,51 @@
-In {{closet.name}} closet:
+<button ng-click="setCloset()">Switch to {{closet.name}} closet</button>
 
-<div ng-repeat="itemId in closet.items">
-	<div ng-repeat="item in items | filter: {_id: itemId} ">	
-		<a href="#/item/{{itemId}}"><img ng-src="./uploads/{{item.img}}" width="200px"></a>
-		<button ng-click="remove(item._id)">remove</button>
+<div id="item-feed">
+	<h1 class="divider">In {{closet.name}} closet:</h1><br>
+	<div id="size-buttons">
+		<button class="small-button" ng-click="imgSize='small'"> small </button>
+		<button class="small-button" ng-click="imgSize='medium'"> medium </button>
+		<button class="small-button" ng-click="imgSize='large'"> large </button>
 	</div>
+	
+	<div ng-repeat="itemId in closet.items" class="item">
+		<div ng-repeat="item in items | filter: {_id: itemId}" class="medium" ng-class="imgSize">
+			<div class="checkbox">
+				<input type="checkbox" ng-model="click" ng-change="clicking('removeArray', item._id)">
+			</div>
+			<a href="#/item/{{itemId}}">
+				<img ng-src="./uploads/{{item.img}}">
+			</a>
+		</div>
+	</div>
+	<br><br><button ng-click="remove()" ng-disabled="!removeArray.length">Remove from closet</button>
 </div>
 
-<br><br>
 
-Add items:<br>
-Search: <input type="text" ng-model="search"> <br>
-<div ng-repeat="item in inCloset(items, $index) | filter: search">
-	<div>
-		<input type="checkbox" ng-model="click" ng-change="clicking(item._id)">
-		<img ng-src="./uploads/{{item.img}}" width="100px">
+<div id="item-feed">
+	<h1 class="divider">Add to {{closet.name}} closet</h1><br>
+	<input type="text" ng-model="search" placeholder="Search garments"> 
+	<br><br>
+
+	<div id="size-buttons">
+		<button class="small-button" ng-click="imgSize2='small'"> small </button>
+		<button class="small-button" ng-click="imgSize2='medium'"> medium </button>
+		<button class="small-button" ng-click="imgSize2='large'"> large </button>
 	</div>
+	<div ng-repeat="item in inCloset(items, $index) | filter: search" class="item">
+		<div class="item small" ng-class="imgSize2">
+			<label>
+				<img ng-src="./uploads/{{item.img}}">
+				<div class="check">
+					<img src="/img/check.png" class="display-none" ng-class="{checked: checked}">
+				</div>
+				<input type="checkbox" class="display-none" ng-model="checked" ng-change="clicking('addArray', item._id)">
+			</label>
+		</div>
+	</div>
+	<br><br><button ng-click="add()" ng-disabled="!addArray.length">Add to closet</button>
 </div>
-<button ng-click="add()">Add to closet</button>
-<button ng-click="removeCloset()">REMOVE</button>
+
+
+<button class="different divider" ng-click="removeCloset()">Delete closet</button>
+

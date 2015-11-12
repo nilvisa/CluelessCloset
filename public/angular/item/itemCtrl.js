@@ -14,7 +14,7 @@ angular.module('item', [])
 
   .when('/item/:id', {
     templateUrl: 'angular/item/showItem.html',
-    controller: 'ShowItemCtrl',
+    controller: 'UpdateItemCtrl',
     resolve: {
       itemsData: ['Items', function(Items) {
         return Items.query();
@@ -63,15 +63,15 @@ function ($scope, multipartForm, Items, itemsData, $location) {
       img: $scope.newItem.img.name,
       tags: [],
       types: [],
-      owner: $scope.userId});
+      owner: $scope.userId,
+      created: new Date()});
+    console.log($scope.newItem.img);
 
-      item.$save(function(){
-        var uploadUrl = '/items/upload/'+item._id;
-        multipartForm.post(uploadUrl, $scope.newItem);
-        $location.path('/item/edit/'+item._id);
-      });
-
-      // $scope.items.push(item);
+    item.$save(function(){
+      var uploadUrl = '/items/upload/'+item._id;
+      multipartForm.post(uploadUrl, $scope.newItem);
+      $location.path('/item/edit/'+item._id);
+    });
   }
 
 }])
@@ -122,14 +122,4 @@ function ($scope, $routeParams, Items, itemsData, Outfits, typesData, tagsData, 
     $location.path('/item');
   }
 
-}])
-
-.controller('ShowItemCtrl', ['$scope', '$routeParams', 'Items', 'itemsData', 'Outfits', 'typesData', 'tagsData', '$location', 'getItem', 
-function ($scope, $routeParams, Items, itemsData, Outfits, typesData, tagsData, $location, getItem) {
-  $scope.items = itemsData;
-  $scope.item = getItem;
-  $scope.outfits = Outfits.query();
-  $scope.types = typesData;
-  $scope.tags = tagsData;
-
-  }]);
+}]);

@@ -15,12 +15,7 @@ var UserSchema = mongoose.Schema({
         email        : String,
         name         : String
     },
-    google           : {
-        id           : String,
-        token        : String,
-        email        : String,
-        name         : String
-    },
+    closet : String
 });
 
 // methods ======================

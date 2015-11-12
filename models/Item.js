@@ -5,7 +5,8 @@ var ItemSchema = new mongoose.Schema({
   tags: [],
   types: [],
   missmatch: [],
-  owner: String
+  owner: String,
+  created: String
 });
 
 module.exports = mongoose.model('Item', ItemSchema);

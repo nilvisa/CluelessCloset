@@ -1,0 +1,25 @@
+<a href="/logout" class="btn btn-default btn-sm">Logout</a>
+       <!-- LOCAL INFORMATION -->
+     <% if (user.local.email) { %>
+      <p>
+          <strong>id</strong>: <%= user._id %><br>
+      </p>
+          
+          <a href="/unlink/local" class="btn btn-default">Unlink</a>
+      <% } else { %>
+          <a href="/connect/local" class="btn btn-default">Connect Local</a>
+      <% } %>
+
+        <!-- FACEBOOK INFORMATION -->
+          <!-- check if the user has this token (is the user authenticated with this social account) -->
+          <% if (user.facebook.token) { %>
+              <p>
+                  <strong>id</strong>: <%= user._id %><br>
+                  <strong>name</strong>: <%= user.facebook.name %><br>
+              </p>
+
+              <a href="/unlink/facebook" class="btn btn-primary">Unlink</a>
+          <% } else { %>
+              <a href="/connect/facebook" class="btn btn-primary">Connect Facebook</a>
+          <% } %>
+   

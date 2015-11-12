@@ -1,11 +1,14 @@
 <form>
-  	name: <input type="text" ng-model="name"><br>
-	
-	<button ng-click="save()">Create</button><br><br>
+  	<input type="text" ng-model="name" placeholder="name"> 	
+	<button ng-click="save()">Create new</button><br><br>
 </form>
 <br>
-<ul>
-<li ng-repeat="closet in closets">
-    <a href="#/closet/{{closet._id}}">{{closet.name}}</a>
-</li>
-</ul>
+<div id="closets">
+	<ul>
+		<li ng-repeat="closet in closets">
+		    <div class="button">
+		    	<a href="#/closet/{{closet._id}}">{{closet.name}}</a>
+		    </div>
+		</li>
+	</ul>
+</div>
