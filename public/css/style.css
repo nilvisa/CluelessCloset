@@ -28,6 +28,14 @@
 		padding: 7px;
 	}
 
+	h3 {
+		display: inline-block;
+		background: #fff;
+		color: #000;
+		size: 15px;
+		padding: 5px;
+	}
+
 	a {
 		color: #000;
 		text-decoration: none;
@@ -75,6 +83,12 @@
 		cursor: text;
 	}
 
+	button:disabled {
+		background: #ccc;
+		border-color: #bbb;
+		cursor: default;
+	}
+
 	.different {
 		background: #555;
 		border-color: #666;
@@ -116,16 +130,6 @@
 	#menu button {
 		margin: 3px;
 	}
-
-/*CLOSET*/
-	#closets {
-		width: 70%;
-		margin: auto;
-	}
-		#closets .button {
-			font-size: 50px;
-			margin: 20px;
-		}
 
 /*ITEM*/
 	#item-feed {
@@ -172,12 +176,6 @@
 			cursor: pointer;
 		}
 
-	div.right-button {
-		position: absolute;
-		top: 100px;
-		right: 10%;
-	}
-
 	div.checkbox {
 		position: absolute;
 		top: 10px;
@@ -200,6 +198,54 @@
 		display: inline-block;
 	}
 
+/*CLOSET*/
+	#closets {
+		width: 70%;
+		margin: auto;
+	}
+		#closets .button {
+			font-size: 50px;
+			margin: 20px;
+		}
+
+/*POP-UPS*/
+	#remove {
+		position: fixed;
+		top: 100px;
+		left: 50%;
+		margin-left: -250px;
+		height: 300px;
+		width: 500px;
+		background: #fff;
+		border: 5px solid #ccc;
+		border-style: ridge;
+		z-index: 12;
+	}
+
+	#banner {
+		height: 30px;
+		background: #000;
+		color: #fff;
+		padding: 3px;
+	}
+		#banner p {
+			float: left;
+			text-align: left;
+			margin: 5px;
+		}
+		#banner button {
+			float: right;
+			height: 30px;
+			width: 30px;
+			font-size: 12px;
+			padding: 2px;
+		}
+
+	#popup-content {
+		width: 90%;
+		margin: 20px auto;
+	}
+
 /*HACKS*/
 	.left {
 		float: left;
@@ -213,6 +259,10 @@
 
 	.hidden {
 		visibility: hidden;
+	}
+
+	.show {
+		visibility: visible;
 	}
 
 	.divider {

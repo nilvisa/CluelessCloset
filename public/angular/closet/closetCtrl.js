@@ -61,10 +61,6 @@ function ($scope, $routeParams, Items, itemsData, Closets, getCloset, closetsDat
     $scope.addArray = [];
   }
 
-  $scope.setCloset = function(){
-  	
-  }
-
   $scope.inCloset = function (){
     return $scope.items.filter(function (item) {
       return $scope.closet.items.indexOf(item._id) === -1;
@@ -97,9 +93,9 @@ function ($scope, $routeParams, Items, itemsData, Closets, getCloset, closetsDat
     });
   }
 
-    $scope.removeCloset = function(){
+	$scope.removeCloset = function(){
 		Closets.remove({id: $scope.closet._id});
-    	$location.path('/closet');
-    }
+		$location.path('/closet');
+	}
 
 }]);

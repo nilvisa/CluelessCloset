@@ -1,13 +1,11 @@
-<button ng-click="setCloset()">Switch to {{closet.name}} closet</button>
-
-<div id="item-feed">
-	<h1 class="divider">In {{closet.name}} closet:</h1><br>
+<h1>In {{closet.name}} closet:</h1><br>
+<div id="item-feed" ng-show="closet.items.length">
 	<div id="size-buttons">
 		<button class="small-button" ng-click="imgSize='small'"> small </button>
 		<button class="small-button" ng-click="imgSize='medium'"> medium </button>
 		<button class="small-button" ng-click="imgSize='large'"> large </button>
 	</div>
-	
+
 	<div ng-repeat="itemId in closet.items" class="item">
 		<div ng-repeat="item in items | filter: {_id: itemId}" class="medium" ng-class="imgSize">
 			<div class="checkbox">
@@ -20,10 +18,14 @@
 	</div>
 	<br><br><button ng-click="remove()" ng-disabled="!removeArray.length">Remove from closet</button>
 </div>
+<div ng-show="!closet.items.length">
+	<h3>Add items to this closet!</h3>
+</div>
 
 
-<div id="item-feed">
-	<h1 class="divider">Add to {{closet.name}} closet</h1><br>
+<h1 class="divider">Add to {{closet.name}} closet</h1><br>
+
+<div id="item-feed" ng-show="inCloset(items, $index).length">
 	<input type="text" ng-model="search" placeholder="Search garments"> 
 	<br><br>
 
@@ -45,7 +47,23 @@
 	</div>
 	<br><br><button ng-click="add()" ng-disabled="!addArray.length">Add to closet</button>
 </div>
+<div ng-show="!inCloset(items, $index).length">
+	<h3>All your items are in the {{closet.name}} closet</h3>
+</div>
 
 
-<button class="different divider" ng-click="removeCloset()">Delete closet</button>
+<button class="different divider" ng-click="showPopUp='show'">Delete closet</button>
+
+<div id="remove" class="hidden" ng-class="showPopUp">
+	<div id="banner">
+		<p>Delete {{closet.name}} closet?</p>
+		<button ng-click="showPopUp='hidden'"> x </button>
+	</div>
+	<div id="popup-content">
+		<p>Are you really sure you want to delete the {{closet.name}} closet!?</p>
+		<br><br>
+		<button ng-click="showPopUp='hidden'">No, Cancel!</button>
+		<button class="different" ng-click="removeCloset()">Yes, Delete!</button>
+	</div>	
+</div>
 
