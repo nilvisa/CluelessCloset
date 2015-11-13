@@ -12,6 +12,16 @@ angular.module('item', [])
       }
    })
 
+    .when('/items', {
+      templateUrl: 'angular/item/browseItems.html',
+      controller: 'CreateItemCtrl',
+      resolve: {
+        itemsData: ['Items', function(Items) {
+          return Items.query();
+        }]
+      }
+   })
+
   .when('/item/:id', {
     templateUrl: 'angular/item/showItem.html',
     controller: 'UpdateItemCtrl',
@@ -76,14 +86,13 @@ function ($scope, multipartForm, Items, itemsData, $location) {
 
 }])
 
-.controller('UpdateItemCtrl', ['$scope', '$routeParams', 'Items', 'itemsData', 'Outfits', 'typesData', 'tagsData', '$location', 'getItem', 
-function ($scope, $routeParams, Items, itemsData, Outfits, typesData, tagsData, $location, getItem) {
+.controller('UpdateItemCtrl', ['$scope', '$routeParams', 'Items', 'itemsData', 'Outfits', 'typesData', 'tagsData', '$location', 'getItem', 'Types', 'Tags', 'Closets', 
+function ($scope, $routeParams, Items, itemsData, Outfits, typesData, tagsData, $location, getItem, Types, Tags, Closets) {
 	$scope.items = itemsData;
   $scope.item = getItem;
   $scope.outfits = Outfits.query();
   $scope.types = typesData;
   $scope.tags = tagsData;
-
 
 	$scope.inArray = function(where, string){
 		var arr = $scope.item[where];
@@ -106,20 +115,60 @@ function ($scope, $routeParams, Items, itemsData, Outfits, typesData, tagsData, 
 	}
 
 	$scope.save = function(){
-		Items.update({id: $scope.item._id}, {tags: $scope.item.tags, types: $scope.item.types});
-    	$location.path('/item');
+		Items.update({id: $scope.item._id}, $scope.item);
 	}
 
+  $scope.addToArr = function(where, parent){
+    $scope[where][0][parent].push($scope[where][parent]);
+    if(where === 'types'){
+      Types.update({id: $scope.types[0]._id}, $scope.types[0]);
+    } else {
+      Tags.update({id: $scope.tags[0]._id}, $scope.tags[0]);
+    }
+    $scope[where][parent] = "";
+  }
+
+  $scope.changeMind = function(itemID){
+    var index = $scope.item.missmatch.indexOf(itemID);
+    $scope.item.missmatch.splice(index, 1);
+    Items.update({id: $scope.item._id}, $scope.item);
+
+    angular.forEach($scope.items, function(item){
+      if(item._id === itemID) {
+        var index = item.missmatch.indexOf(itemID);
+        item.missmatch.splice(index, 1);
+        Items.update({id: item._id}, item);
+      }
+    })
+  }
+
   $scope.remove = function(){
-    for (var i = 0, len = $scope.outfits.length; i < len; i++) {
-      var outfit = $scope.outfits[i];
+    angular.forEach($scope.outfits, function(outfit){
       if(outfit.items.indexOf($scope.item._id) !== -1){
-        outfit.items.splice($scope.item._id, 1);
+        var index = outfit.items.indexOf($scope.item._id)
+        outfit.items.splice(index, 1);
         Outfits.update({id: outfit._id}, outfit);
       }
-    }
+    });
+
+    angular.forEach($scope.items, function(item){
+      if(item.missmatch.indexOf($scope.item._id) !== -1){
+        var index = item.missmatch.indexOf($scope.item._id);
+        item.missmatch.splice(index, 1);
+        Items.update({id: item._id}, item);
+      }
+    });
+
+     angular.forEach($scope.closets, function(closet){
+      if(closet.items.indexOf($scope.item._id) !== -1){
+        var index = closet.items.indexOf($scope.item._id);
+        closet.items.splice(index, 1);
+        Closets.update({id: closet._id}, closet);
+      }
+    });
+
     Items.remove({id: $scope.item._id});
-    $location.path('/item');
+    $location.path('/items');
   }
 
 }]);

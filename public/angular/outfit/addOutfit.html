@@ -31,15 +31,14 @@
 <button ng-click="missMatch()">Miss Match!</button>
 
 
-<ul ng-repeat="outfit in outfits">
-	<li>
-		
+<div ng-repeat="outfit in outfits">		
+	<div class="outfit">
 		<div ng-repeat="itemId in outfit.items">
-		<a href="#/outfit/{{outfit._id}}">
-			<div ng-repeat="item in items | filter : {_id: itemId} ">
-				<img ng-src="./uploads/{{item.img}}" width="100px">
-			</div>
-		</a>
+			<a href="#/outfit/{{outfit._id}}">		
+				<div ng-repeat="item in items | filter : {_id: itemId}" class="small">
+					<img ng-src="./uploads/{{item.img}}">
+				</div>	
+			</a>	
 		</div>
-	</li>
-</ul>
+	</div>
+</div>

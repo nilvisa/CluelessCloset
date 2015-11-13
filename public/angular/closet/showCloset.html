@@ -54,16 +54,18 @@
 
 <button class="different divider" ng-click="showPopUp='show'">Delete closet</button>
 
-<div id="remove" class="hidden" ng-class="showPopUp">
+<div id="remove" class="pop-up hidden" ng-class="showPopUp">
 	<div id="banner">
 		<p>Delete {{closet.name}} closet?</p>
 		<button ng-click="showPopUp='hidden'"> x </button>
 	</div>
 	<div id="popup-content">
-		<p>Are you really sure you want to delete the {{closet.name}} closet!?</p>
-		<br><br>
-		<button ng-click="showPopUp='hidden'">No, Cancel!</button>
-		<button class="different" ng-click="removeCloset()">Yes, Delete!</button>
+		<div class="padding">	
+			<p>Are you really sure you want to delete the {{closet.name}} closet!?</p>
+			<br><br>
+			<button ng-click="showPopUp='hidden'">No, Cancel!</button>
+			<button class="different" ng-click="removeCloset()">Yes, Delete!</button>
+		</div>
 	</div>	
 </div>
 

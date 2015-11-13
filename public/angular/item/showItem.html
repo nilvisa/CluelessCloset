@@ -1,13 +1,112 @@
-<img ng-src="./uploads/{{item.img}}" width="400px"><br>
+<div id="item-wrapper">	
+	<div id="single">
+		<img ng-src="./uploads/{{item.img}}">
+	</div>		
 
-<h2>types:</h2>
-<div ng-repeat="type in item.types">
-	{{type}}
-</div> 
+	<div id="type-tag">
+		<button ng-click="showType='show'">add Garment type</button><br>
+		<h3 ng-repeat="type in item.types">{{type}}</h3> 
+		<br><br>
 
-<h2>tags:</h2>
-<div ng-repeat="tag in item.tags">
-	{{tag}}
-</div> 
+		<button ng-click="showTag='show'">add tag</button><br>
+		<h3 ng-repeat="tag in item.tags">{{tag}}</h3>
+	</div>
+</div>
 
-<a href="#/item/edit/{{item._id}}">edit</a>
+<h1 class="divider">Outfits containing this item:</h1><br>	
+<div ng-repeat="outfit in filteredOutfits = (outfits | filter: {items: item._id})">
+	<div class="outfit">
+		<div ng-repeat="itemId in outfit.items">
+			<a href="#/outfit/{{outfit._id}}">		
+				<div ng-repeat="item in items | filter : {_id: itemId}" class="small">
+					<img ng-src="./uploads/{{item.img}}">
+				</div>	
+			</a>
+		</div>
+	</div>
+</div>
+<div ng-show="!filteredOutfits.length">
+	<h3>Looks like there's no outfits containing this item.</h3><br>
+	<button onclick="location.href='#/outfit';">Create some!</button>
+</div>
+
+<div ng-show="item.missmatch.length">
+	<h1 class="divider">Miss-matched with:</h1><br>
+	<div ng-repeat="itemId in item.missmatch" class="item">
+		<div ng-repeat="item in items | filter : {_id: itemId} " class="small">
+			<a href="#/item/{{item._id}}"><img ng-src="./uploads/{{item.img}}"></a>
+			<br>
+			<button class="small-button" ng-click="changeMind(item._id)">Changed my mind</button>
+			<br><br>
+		</div>
+	</div>
+</div>
+
+<br><br>
+<button class="different divider" ng-click="showRemove='show'">Delete item</button>
+
+<div id="remove" class="pop-up hidden" ng-class="showRemove">
+	<div id="banner">
+		<p>Delete this item?</p>
+		<button ng-click="showRemove='hidden'"> x </button>
+	</div>
+	<div id="popup-content">
+		<div class="padding">
+			<p>Are you really sure you want to delete this item?</p>
+			<p>The item will also be deleted from any outfits or closets it may have been added to.</p>
+			<br><br>
+			<button ng-click="showRemove='hidden'">No, Cancel!</button>
+			<button class="different" ng-click="remove()">Yes, Delete!</button>
+		</div>
+	</div>	
+</div>
+
+<div id="addType" class="pop-up hidden" ng-class="showType">
+	<div id="banner">
+		<p>Add garment type</p>
+		<button ng-click="showType='hidden'; save()"> x </button>
+	</div>
+	<div id="popup-content">
+		<div class="padding wide" ng-repeat="type in types">
+			<div ng-repeat="(parent, array) in type">
+				<span ng-hide="parent == 'owner' || parent == '_id' || parent == '__v'">
+					<button ng-click="show = !show">{{parent}}</button><br>
+					<div ng-repeat="child in array track by $index" ng-show="show">
+						<button ng-show="!inArray('types', child)" ng-click="push('types', child)">{{child}}</button>
+			    		<button class="active" ng-show="inArray('types', child)" ng-click="splice('types', child)">{{child}}</button>
+					</div>
+					<div ng-show="show">
+					<input type="text" ng-model="types[parent]" placeholder="write">
+					<button ng-click="addToArr('types', parent)" ng-disabled="!types[parent].length">Add type</button>
+					</div>
+					<br><br>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="addTag" class="pop-up hidden" ng-class="showTag">
+	<div id="banner">
+		<p>Add garment type</p>
+		<button ng-click="showTag='hidden'; save()"> x </button>
+	</div>
+	<div id="popup-content">
+		<div class="padding wide" ng-repeat="tag in tags">
+			<div ng-repeat="(parent, array) in tag">
+				<span ng-hide="parent == 'owner' || parent == '_id' || parent == '__v'">
+					<button ng-click="show = !show">{{parent}}</button><br>
+					<div ng-repeat="child in array track by $index" ng-show="show">
+						<button ng-show="!inArray('tags', child)" ng-click="push('tags', child)">{{child}}</button>
+			    		<button class="active" ng-show="inArray('tags', child)" ng-click="splice('tags', child)">{{child}}</button>
+					</div>
+					<div ng-show="show">
+					<input type="text" ng-model="tags[parent]" placeholder="write">
+					<button ng-click="addToArr('tags', parent)" ng-disabled="!tags[parent].length">Add tag</button>
+					</div>
+					<br><br>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>

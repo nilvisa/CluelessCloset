@@ -34,6 +34,7 @@
 		color: #000;
 		size: 15px;
 		padding: 5px;
+		margin: 7px 2px;
 	}
 
 	a {
@@ -70,7 +71,15 @@
 		border-color: #3c62f0;
 	}
 
-	input[type=submit]:active, input[type=button]:active, button:active, .button:active {
+	.small-button {
+		background: #111;
+		color: #fff;
+		font-size: 12px;
+		border: 4px solid #000;
+		margin: 3px;
+	}
+
+	input[type=submit]:active, input[type=button]:active, button:active, .button:active, .active {
 		background: #597cfd;
 		border-color: #3c62f0;
 		border-style: inset;
@@ -92,13 +101,6 @@
 	.different {
 		background: #555;
 		border-color: #666;
-	}
-
-	.small-button {
-		background: #111;
-		color: #fff;
-		font-size: 12px;
-		border: 4px solid #000;
 	}
 
 /*HEADER*/
@@ -129,9 +131,16 @@
 /*START*/
 	#menu button {
 		margin: 3px;
+		width: 220px;
 	}
 
 /*ITEM*/
+	#top-buttons {
+		width: 80%;
+		height: 70px;
+		margin: auto;
+	}
+
 	#item-feed {
 		position: relative;
 		width: 90%;
@@ -198,6 +207,49 @@
 		display: inline-block;
 	}
 
+	#item-wrapper {
+		max-width: 900px;
+		margin: auto;
+		text-align: center;
+	}
+		#item-wrapper div {
+			display: inline-block;
+			margin: auto;
+		}
+
+	#single {
+		width: 400px
+	}
+		#single img {
+			width: 100%;
+		}
+
+	#type-tag {
+		width: 400px;
+		padding-top: 50px;
+		vertical-align: top;
+	}
+
+/*OUTFIT*/
+	.outfit {
+		border: 7px solid #bbb;
+		border-style: outset;
+		display: inline-block;
+		margin: 5px;
+		height: 100px;
+	}
+		.outfit img {
+			border: none;
+		}
+		.outfit div {
+			display: inline-block;
+			margin: 0px;
+		}
+
+	.red {
+		background: red;
+	}
+
 /*CLOSET*/
 	#closets {
 		width: 70%;
@@ -209,13 +261,14 @@
 		}
 
 /*POP-UPS*/
-	#remove {
+	.pop-up {
 		position: fixed;
 		top: 100px;
 		left: 50%;
-		margin-left: -250px;
-		height: 300px;
-		width: 500px;
+		margin-left: -200px;
+		min-height: 300px;
+		max-height: 400px;
+		width: 400px;
 		background: #fff;
 		border: 5px solid #ccc;
 		border-style: ridge;
@@ -242,8 +295,17 @@
 		}
 
 	#popup-content {
-		width: 90%;
-		margin: 20px auto;
+		width: 100%;
+		margin: 0px;
+		max-height: 364px;
+		overflow: auto;
+	}
+		#popup-content input[type=text] {
+			width: 176px;
+		}
+
+	.wide button {
+		width: 200px;
 	}
 
 /*HACKS*/
@@ -261,14 +323,33 @@
 		visibility: hidden;
 	}
 
+	.none {
+		display: none;
+	}
+
 	.show {
 		visibility: visible;
 	}
 
-	.divider {
-		margin: 120px auto 10px auto;
+	.block {
+		display: block;
 	}
 
+	.inline {
+		display: inline-block;
+	}
+
+	.divider {
+		margin: 100px auto 10px auto;
+	}
+
+	.clear {
+		clear: both;
+	}
+
+	.padding {
+		margin: 20px;
+	}
 	
 
 	

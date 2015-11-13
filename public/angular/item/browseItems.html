@@ -1,0 +1,22 @@
+<div id="top-buttons">
+	<button class="left" onclick="location.href='#/item';">Add new item</button>
+	<input type="text" class="right" ng-model="search" placeholder="Search garments">
+</div>
+
+<div id="item-feed" ng-show="items.length">
+	<div id="size-buttons">
+		<button class="small-button" ng-click="imgSize='small'"> small </button>
+		<button class="small-button" ng-click="imgSize='medium'"> medium </button>
+		<button class="small-button" ng-click="imgSize='large'"> large </button>
+	</div>
+
+	<div ng-repeat="item in items | filter: search" class="item medium" ng-class="imgSize">
+		<a href="#/item/{{item._id}}">
+			<img ng-src="./uploads/{{item.img}}">
+		</a>
+	</div>
+</div>
+
+<div ng-show="!items.length">
+	<h3>You don't have any items yet!</h3>
+</div>
