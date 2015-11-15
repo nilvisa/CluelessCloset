@@ -3,11 +3,39 @@ angular.module('outfit', [])
 .config(['$routeProvider', function ($routeProvider) {
   $routeProvider
    .when('/outfit', {
-      templateUrl: 'angular/outfit/addOutfit.html',
+      templateUrl: 'angular/outfit/generateOutfit.html',
       controller: 'CreateOutfitCtrl',
       resolve: {
+        outfitsData: ['Outfits', function(Outfits) {
+          return Outfits.query();
+        }],
+        itemsData: ['Items', function(Items) {
+          return Items.query();
+        }],
         typesData: ['Types', function(Types) {
           return Types.query();
+        }],
+        closetsData: ['Closets', function(Closets) {
+          return Closets.query();
+        }]
+      }
+    })
+
+   .when('/outfit-manual', {
+      templateUrl: 'angular/outfit/manuallyOutfit.html',
+      controller: 'CreateOutfitCtrl',
+      resolve: {
+        outfitsData: ['Outfits', function(Outfits) {
+          return Outfits.query();
+        }],
+        itemsData: ['Items', function(Items) {
+          return Items.query();
+        }],
+        typesData: ['Types', function(Types) {
+          return Types.query();
+        }],
+        closetsData: ['Closets', function(Closets) {
+          return Closets.query();
         }]
       }
     })
@@ -30,12 +58,14 @@ angular.module('outfit', [])
    });
 }])
 
-.controller('CreateOutfitCtrl', ['$scope', 'Items', 'Outfits', 'typesData', '$location', 
-  function ($scope, Items, Outfits, typesData, $location) {
-    $scope.outfits = Outfits.query();
+.controller('CreateOutfitCtrl', ['$scope', 'Items', 'itemsData', 'Outfits', 'outfitsData', 'typesData', 'closetsData', '$location', 
+  function ($scope, Items, itemsData, Outfits, outfitsData, typesData, closetsData, $location) {
+    $scope.outfits = outfitsData;
+    $scope.allItems = itemsData;
     $scope.types = typesData;
-    console.log(typesData);
-    $scope.blocks = [];
+    $scope.closets = closetsData;
+    $scope.blocks = ['1'];
+    $scope.closetItems = $scope.allItems;
 
     $scope.items = Items.query(function (items) {
       var itemMap = _.indexBy(items, '_id');
@@ -54,15 +84,18 @@ angular.module('outfit', [])
         });      
       }
       $scope.clicked = [];
-      console.log($scope.clicked + 'missmatchat!');      
     });
- 
+
     if(!$scope.coll) {
       $scope.coll = [];
     }
 
     if(!$scope.clicked) {
       $scope.clicked = [];
+    }
+
+    if(!$scope.manualArray) {
+      $scope.manualArray = [];
     }
    	
   	$scope.newBlock = function(){
@@ -100,28 +133,58 @@ angular.module('outfit', [])
       }
       
   	}
-
-    $scope.clicking = function(index){
-      var item = $scope.outfitItems[index];
       
-      if($scope.clicked.indexOf(item._id) == -1){
-        $scope.clicked.push(item._id);
+    $scope.clicking = function(array, item){
+    // if(where === 'generate'){
+        //   var item = $scope.outfitItems[index];
+        // }
+      if($scope[array].indexOf(item) == -1){
+        $scope[array].push(item);
       } else {
-        var index2 = $scope.clicked.indexOf(item._id);
-        $scope.clicked.splice(index2, 1);
+        var index = $scope[array].indexOf(item);
+        $scope[array].splice(index, 1);
       }
-
-      console.log($scope.clicked);
     }
 
 
-    $scope.saveOutfit = function(){
+    $scope.chooseCloset = function(){
+      var closetId = $scope.choose.closet;
+      if($scope.choose.closet === 'all'){
+        $scope.closetItems = $scope.allItems;
+      } else {
+        $scope.closetItems = [];
+        angular.forEach($scope.closets, function(closet){
+          if(closet._id === closetId){
+            angular.forEach($scope.allItems, function(item){
+              if(closet.items.indexOf(item._id) !== -1){
+                $scope.closetItems.push(item);
+              }
+            })
+          }
+        });
+      }
+      return $scope.closetItems;
+    }
+
+
+    $scope.saveOutfit = function(method){
+      if(method === 'manual'){
+        var outfit = new Outfits({items: $scope.manualArray, owner: $scope.userId});
+      
+        outfit.$save(function(){
+          $scope.outfits.push(outfit);
+          $scope.createdOutfit = outfit;
+          $scope.manualArray = [];
+        });
+
+      } else {
       var outfit = new Outfits({items: $scope.random, owner: $scope.userId});
 
       outfit.$save(function(){
-        $scope.outfits.push(outfit);
-        $scope.outfitItems = [];
-      });
+          $scope.outfits.push(outfit);
+          $scope.outfitItems = [];
+        });
+      }
     }
 
 }])

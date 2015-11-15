@@ -22,10 +22,10 @@ angular.module('closet', [])
         return Closets.get({id: id});
       }],
       closetsData: ['Closets', function(Closets) {
-        return Closets.query({owner: "561cd088b360d5b022f3fcbe"});
+        return Closets.query();
       }],
       itemsData: ['Items', function(Items) {
-        return Items.query({owner: "561cd088b360d5b022f3fcbe"});
+        return Items.query();
       }],
     }
    });   

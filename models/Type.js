@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
 var TypeSchema = new mongoose.Schema({
-	top: [],
-	bottom: [],
+	tops: [],
+	bottoms: [],
 	shoes: [],
 	accessories: [],
 	owner: String

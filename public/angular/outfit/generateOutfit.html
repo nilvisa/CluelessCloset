@@ -1,0 +1,61 @@
+<button ng-click="randomize()">Generate Outfit!</button>
+<button ng-click="saveOutfit()">Save!</button>
+<button ng-click="missMatch()">Miss Match!</button>
+	<br>total: {{coll}}<br>
+	<div class="">
+			<button ng-click="newBlock()"> + </button><br>
+			<h3>Add an item</h3>
+		</div>
+
+
+<div id="generator">
+	<div class="repeater">
+		<div class="item-block" ng-repeat="block in blocks">
+
+			<button class="small-button" ng-class="showButton" ng-click="showTypes='inline'; showButton='none'" ng-show="!types.add[block]">Garment type</button>
+			<button class="small-button" ng-class="showButton" ng-click="showTypes='inline'; showButton='none'" ng-show="types.add[block]">{{types.add[block]}}</button>
+
+			<div ng-repeat="type in types" class="none" ng-class="showTypes">
+				<div ng-repeat="(parent, array) in type">
+					<span ng-hide="parent == 'owner' || parent == '_id' || parent == '__v'">
+						<select ng-init="block" ng-model="types.add[block]" ng-change="findItems(block)">
+							<option selected="true" disabled="disabled" value="">{{parent}}</option>
+							<option value="{{parent}}">all {{parent}}</option>
+							<option ng-repeat="child in array track by $index" value="{{child}}">{{child}}</option>
+						</select> 
+					</span>
+				</div>
+			</div>
+
+			<button class="different none" ng-class="showTypes" ng-click="showButton='inline'; showTypes='none'">close</button>
+
+		</div>
+	</div>
+
+	<div class="repeater2">
+		<div ng-repeat="item in outfitItems" class="item-block">
+			<img ng-src="./uploads/{{item.img}}">
+			<input type="checkbox" ng-model="miss" ng-change="clicking('generate', item._id)">
+		</div>
+	</div>
+
+	<div class="repeater3">
+		<div class="item-block bg-border" ng-repeat="block in blocks">
+		<h1 class="center">{{block}}</h1>
+		</div>
+	</div>
+</div>
+<br><br>
+
+
+<!-- <div ng-repeat="outfit in outfits">		
+	<div class="outfit">
+		<div ng-repeat="itemId in outfit.items">
+			<a href="#/outfit/{{outfit._id}}">		
+				<div ng-repeat="item in items | filter : {_id: itemId}" class="small">
+					<img ng-src="./uploads/{{item.img}}">
+				</div>	
+			</a>	
+		</div>
+	</div>
+</div> -->
