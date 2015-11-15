@@ -248,13 +248,9 @@
 
 	#generator {
 		position: relative;
-		width: 80%;
+		max-width: 750px;
 		margin: auto;
 	}
-		/*#generator div {
-			margin: 0px;
-			padding: 0px;
-		}*/
 
 	div.repeater, div.repeater2, div.repeater3 {
 		position: absolute;
@@ -274,7 +270,7 @@
 		width: 200px;
 		height: 200px;
 		display: inline-block;	
-		margin: 20px;
+		margin: 10px 0 10px 20px;
 		border: 7px solid #bbb;
 		border-style: outset;
 		vertical-align: top;
@@ -296,6 +292,15 @@
 	.bg-border {
 		background: #fff;
 	}
+
+	.no-frame {
+		border: none;
+	}
+		.no-frame button {
+			font-size: 40px;
+			width: 80px;
+			margin-top: 40px;
+		}
 
 	.center {
 		margin-top: 70px;

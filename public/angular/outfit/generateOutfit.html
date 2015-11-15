@@ -1,12 +1,12 @@
-<button ng-click="randomize()">Generate Outfit!</button>
-<button ng-click="saveOutfit()">Save!</button>
-<button ng-click="missMatch()">Miss Match!</button>
-	<br>total: {{coll}}<br>
-	<div class="">
-			<button ng-click="newBlock()"> + </button><br>
-			<h3>Add an item</h3>
-		</div>
+<select ng-model="choose.closet" ng-change="chooseCloset()">
+<option selected="true" disabled="disabled" value="">Choose closet</option>
+<option value="all">All items</option>
+<option ng-repeat="closet in closets" value="{{closet._id}}">{{closet.name}}</option>
+</select>
 
+<button ng-click="randomize()" ng-disabled="!coll.length">Generate Outfit!</button>
+<button ng-click="saveOutfit()" ng-disabled="!outfitItems.length">Save!</button>
+<button ng-click="missMatch()" ng-disabled="!clicked.length">Miss Match!</button>
 
 <div id="generator">
 	<div class="repeater">
@@ -30,6 +30,10 @@
 			<button class="different none" ng-class="showTypes" ng-click="showButton='inline'; showTypes='none'">close</button>
 
 		</div>
+		<div class="item-block no-frame">
+		<button ng-click="newBlock()"> + </button><br>
+		<h3>Add an item</h3>
+	</div>
 	</div>
 
 	<div class="repeater2">

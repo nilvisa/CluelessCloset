@@ -103,50 +103,6 @@ angular.module('outfit', [])
   		$scope.blocks.push(number);
   	}
 
-  	$scope.findItems = function(block){
-		$scope.arr = [];
-	  	var option = $scope.types.add[block];
-	  	var items = $scope.items;
-
-	  	for (var i = 0, len = items.length; i < len; i++) {
-	  		if(items[i].types.indexOf(option) > -1){
-	  			$scope.arr.push(items[i]._id);
-	  		}
-  		}
-
-  		$scope.coll[block] = $scope.arr;
-  	}
-
-  	$scope.randomize = function(){
-  		$scope.random = [];
-      $scope.outfitItems = [];
-
-  		for (var i = 1, len = $scope.coll.length; i < len; i++) {
-          var blockArr = $scope.coll[i];
-          var randItem = blockArr[Math.floor(Math.random() * blockArr.length)];
-  	  		$scope.random.push(randItem);
-  		}
-
-      for (var i = 0, len = $scope.random.length; i < len; i++) {
-          var item = Items.get({id: $scope.random[i]});
-          $scope.outfitItems.push(item);
-      }
-      
-  	}
-      
-    $scope.clicking = function(array, item){
-    // if(where === 'generate'){
-        //   var item = $scope.outfitItems[index];
-        // }
-      if($scope[array].indexOf(item) == -1){
-        $scope[array].push(item);
-      } else {
-        var index = $scope[array].indexOf(item);
-        $scope[array].splice(index, 1);
-      }
-    }
-
-
     $scope.chooseCloset = function(){
       var closetId = $scope.choose.closet;
       if($scope.choose.closet === 'all'){
@@ -166,6 +122,72 @@ angular.module('outfit', [])
       return $scope.closetItems;
     }
 
+  	$scope.findItems = function(block){
+		$scope.arr = [];
+	  	var option = $scope.types.add[block];
+	  	var items = $scope.closetItems;
+      var allTypes = ['tops', 'bottoms', 'shoes', 'accessories'];
+
+      // check if all or just single kind of type
+      if(allTypes.indexOf(option) !== -1){ 
+        angular.forEach($scope.types[0][option], function(type){
+          angular.forEach($scope.closetItems, function(items){
+            if(items.types.indexOf(type) !== -1){
+              $scope.arr.push(items._id);
+            }
+          });
+        });
+      } else {
+         angular.forEach($scope.closetItems, function(items){
+          if(items.types.indexOf(option) !== -1){
+            $scope.arr.push(items._id);
+          }
+        });
+      }
+
+      // add to the item-object that will be randomized
+      if(!$scope.arr.length) {
+        $scope.arr = [];
+      }
+  		$scope.coll[block] = $scope.arr;
+  	}
+
+  	$scope.randomize = function(){
+  		$scope.random = [];
+      $scope.outfitItems = [];
+
+      if($scope.coll.length) {
+        for (var i = 1, len = $scope.coll.length; i < len; i++) {
+          if($scope.coll[i]) {
+            var blockArr = $scope.coll[i];
+            if(blockArr.length) {
+              var randItem = blockArr[Math.floor(Math.random() * blockArr.length)];
+            } else var randItem = i; 
+          } else var randItem = i;
+          $scope.random.push(randItem);
+        }
+
+        for (var i = 0, len = $scope.random.length; i < len; i++) {
+          if($scope.random[i].length) {
+            var item = Items.get({id: $scope.random[i]});
+          } else var item = i
+            $scope.outfitItems.push(item);
+        }
+      }
+      
+  	}
+      
+    $scope.clicking = function(array, item){
+    // if(where === 'generate'){
+        //   var item = $scope.outfitItems[index];
+        // }
+      if($scope[array].indexOf(item) == -1){
+        $scope[array].push(item);
+      } else {
+        var index = $scope[array].indexOf(item);
+        $scope[array].splice(index, 1);
+      }
+    }
 
     $scope.saveOutfit = function(method){
       if(method === 'manual'){
