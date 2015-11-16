@@ -168,17 +168,16 @@ angular.module('outfit', [])
               while(stop === false){
                 // randomize item from block
                 var randItem = blockArr[Math.floor(Math.random() * blockArr.length)];
-
-                if($scope.outfitItems.length){
+                if($scope.outfitItems.length){  
                   // check if it missmatches with the other items
                   angular.forEach($scope.outfitItems, function(oItem){
                     if(oItem.missmatch){
-                      console.log('var ett plagg');
                       if(oItem.missmatch.indexOf(randItem) !== -1){
                         if(goThroughArr.indexOf(randItem) !== -1){
                           if(goThroughArr.length === blockArr.length){
                             randItem = i;
                             stop = true;
+                            return;
                           }
                         } else {
                           goThroughArr.push(randItem);
@@ -188,8 +187,9 @@ angular.module('outfit', [])
                       } else {
                         stop = true;
                       }
+                    } else {
+                      stop = true;
                     }
-                    console.log('var inget plagg');
                   });
                 } else {
                   stop = true;
@@ -197,16 +197,15 @@ angular.module('outfit', [])
               }
             } else var randItem = i; 
           } else var randItem = i;
-          $scope.random.push(randItem);
-        }
-
-        // creates the outfit
-        for (var i = 0, len = $scope.random.length; i < len; i++) {
-          // check if block isn't empty
-          if($scope.random[i].length) {
-            var item = Items.get({id: $scope.random[i]});
-          } else var item = i
-            $scope.outfitItems.push(item);
+          if(randItem !== i) {
+            angular.forEach($scope.allItems, function(findItem) {
+              if(findItem._id === randItem){
+                $scope.outfitItems.push(findItem);
+              }
+            })
+          } else {
+            $scope.outfitItems.push(i);
+          }
         }
       }
 

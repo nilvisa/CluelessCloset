@@ -320,6 +320,22 @@
 		margin-top: 70px;
 	}
 
+	#mismatch h1 {
+		position: fixed;
+		top: 150px;
+		left: 50%;
+		margin-left: -310px;
+		width: 600px;
+		font-size: 80px;
+		background: #6378fd;
+		border: 7px solid #222;
+		border-style: outset;
+		z-index: 5;
+	}
+		#mismatch h1:hover {
+			background: #000;
+		}
+
 /*CLOSET*/
 	#closets {
 		width: 70%;
@@ -356,7 +372,7 @@
 			text-align: left;
 			margin: 5px;
 		}
-		#banner button {
+		#banner button, .close {
 			float: right;
 			height: 30px;
 			width: 30px;
@@ -376,6 +392,10 @@
 
 	.wide button {
 		width: 200px;
+	}
+
+	.shadow {
+		box-shadow: 7px 7px 7px #000;
 	}
 
 /*HACKS*/

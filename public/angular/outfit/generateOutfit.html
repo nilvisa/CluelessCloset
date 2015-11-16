@@ -6,7 +6,7 @@
 
 <button ng-click="randomize(); miss.check = false" ng-disabled="!coll.length">Generate Outfit!</button>
 <button ng-click="saveOutfit()" ng-disabled="!outfitItems.length">Save!</button>
-<button ng-click="missMatch()" ng-disabled="clicked.length < 2">Miss Match!</button>
+<button ng-click="missMatch(); showPopUp='show'" ng-disabled="clicked.length < 2">Mis-Match!</button>
 
 <div id="generator">
 	<div class="repeater2">
@@ -46,29 +46,13 @@
 		</div>
 	</div>
 
-	<!-- <div class="repeater2">
-		<div ng-repeat="item in outfitItems" class="generator-checkbox">
-			<input type="checkbox" ng-show="item._id" ng-model="miss" ng-change="clicking('clicked', item._id)">
-		</div>
-	</div> -->
-
 	<div class="repeater3">
 		<div class="item-block bg-border" ng-repeat="block in blocks">
 		<h1 class="center">{{block}}</h1>
 		</div>
 	</div>
 </div>
-<br><br>
 
-
-<!-- <div ng-repeat="outfit in outfits">		
-	<div class="outfit">
-		<div ng-repeat="itemId in outfit.items">
-			<a href="#/outfit/{{outfit._id}}">		
-				<div ng-repeat="item in items | filter : {_id: itemId}" class="small">
-					<img ng-src="./uploads/{{item.img}}">
-				</div>	
-			</a>	
-		</div>
-	</div>
-</div> -->
+<div id="mismatch" class="hidden" ng-class="showPopUp">
+	<h1 class="shadow" ng-click="showPopUp='hidden'">Mis-Match!</h1>
+</div>
