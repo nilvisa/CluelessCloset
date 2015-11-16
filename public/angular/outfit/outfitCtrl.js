@@ -67,6 +67,18 @@ angular.module('outfit', [])
     $scope.blocks = ['1'];
     $scope.closetItems = $scope.allItems;
 
+    if(!$scope.coll) {
+      $scope.coll = [];
+    }
+
+    if(!$scope.clicked) {
+      $scope.clicked = [];
+    }
+
+    if(!$scope.manualArray) {
+      $scope.manualArray = [];
+    }
+
     $scope.items = Items.query(function (items) {
       var itemMap = _.indexBy(items, '_id');
       $scope.missMatch = function() {
@@ -86,23 +98,6 @@ angular.module('outfit', [])
       $scope.clicked = [];
     });
 
-    if(!$scope.coll) {
-      $scope.coll = [];
-    }
-
-    if(!$scope.clicked) {
-      $scope.clicked = [];
-    }
-
-    if(!$scope.manualArray) {
-      $scope.manualArray = [];
-    }
-   	
-  	$scope.newBlock = function(){
-  		var number = $scope.blocks.length+1;
-  		$scope.blocks.push(number);
-  	}
-
     $scope.chooseCloset = function(){
       var closetId = $scope.choose.closet;
       if($scope.choose.closet === 'all'){
@@ -120,6 +115,11 @@ angular.module('outfit', [])
         });
       }
       return $scope.closetItems;
+    }
+
+    $scope.newBlock = function(){
+      var number = $scope.blocks.length+1;
+      $scope.blocks.push(number);
     }
 
   	$scope.findItems = function(block){
@@ -155,38 +155,73 @@ angular.module('outfit', [])
   	$scope.randomize = function(){
   		$scope.random = [];
       $scope.outfitItems = [];
+      var goThroughArr = [];
 
+      // check if there's any items
       if($scope.coll.length) {
         for (var i = 1, len = $scope.coll.length; i < len; i++) {
+          var stop = false;
           if($scope.coll[i]) {
             var blockArr = $scope.coll[i];
+            // check if the block isn't empty
             if(blockArr.length) {
-              var randItem = blockArr[Math.floor(Math.random() * blockArr.length)];
+              while(stop === false){
+                // randomize item from block
+                var randItem = blockArr[Math.floor(Math.random() * blockArr.length)];
+
+                if($scope.outfitItems.length){
+                  // check if it missmatches with the other items
+                  angular.forEach($scope.outfitItems, function(oItem){
+                    if(oItem.missmatch){
+                      console.log('var ett plagg');
+                      if(oItem.missmatch.indexOf(randItem) !== -1){
+                        if(goThroughArr.indexOf(randItem) !== -1){
+                          if(goThroughArr.length === blockArr.length){
+                            randItem = i;
+                            stop = true;
+                          }
+                        } else {
+                          goThroughArr.push(randItem);
+                          stop = false;
+                        }
+                        stop = false;
+                      } else {
+                        stop = true;
+                      }
+                    }
+                    console.log('var inget plagg');
+                  });
+                } else {
+                  stop = true;
+                }
+              }
             } else var randItem = i; 
           } else var randItem = i;
           $scope.random.push(randItem);
         }
 
+        // creates the outfit
         for (var i = 0, len = $scope.random.length; i < len; i++) {
+          // check if block isn't empty
           if($scope.random[i].length) {
             var item = Items.get({id: $scope.random[i]});
           } else var item = i
             $scope.outfitItems.push(item);
         }
       }
-      
+
+      $scope.clicked = [];
   	}
       
     $scope.clicking = function(array, item){
-    // if(where === 'generate'){
-        //   var item = $scope.outfitItems[index];
-        // }
       if($scope[array].indexOf(item) == -1){
         $scope[array].push(item);
       } else {
         var index = $scope[array].indexOf(item);
         $scope[array].splice(index, 1);
       }
+
+      console.log($scope[array]);
     }
 
     $scope.saveOutfit = function(method){
@@ -195,8 +230,8 @@ angular.module('outfit', [])
       
         outfit.$save(function(){
           $scope.outfits.push(outfit);
-          $scope.createdOutfit = outfit;
-          $scope.manualArray = [];
+          // $scope.createdOutfit = outfit;
+          $location.path('/outfit/'+outfit._id);
         });
 
       } else {

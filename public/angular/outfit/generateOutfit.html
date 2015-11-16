@@ -4,13 +4,23 @@
 <option ng-repeat="closet in closets" value="{{closet._id}}">{{closet.name}}</option>
 </select>
 
-<button ng-click="randomize()" ng-disabled="!coll.length">Generate Outfit!</button>
+<button ng-click="randomize(); miss.check = false" ng-disabled="!coll.length">Generate Outfit!</button>
 <button ng-click="saveOutfit()" ng-disabled="!outfitItems.length">Save!</button>
-<button ng-click="missMatch()" ng-disabled="!clicked.length">Miss Match!</button>
+<button ng-click="missMatch()" ng-disabled="clicked.length < 2">Miss Match!</button>
 
 <div id="generator">
+	<div class="repeater2">
+		<div ng-repeat="item in outfitItems" class="item-block">
+			<img class="" ng-src="./uploads/{{item.img}}">
+		</div>
+	</div>
+
 	<div class="repeater">
 		<div class="item-block" ng-repeat="block in blocks">
+
+			<div class="generator-checkbox">
+				<input type="checkbox" ng-show="outfitItems[block-1]._id" ng-model="miss.check[block]" ng-change="clicking('clicked', outfitItems[block-1]._id)">
+			</div>
 
 			<button class="small-button" ng-class="showButton" ng-click="showTypes='inline'; showButton='none'" ng-show="!types.add[block]">Garment type</button>
 			<button class="small-button" ng-class="showButton" ng-click="showTypes='inline'; showButton='none'" ng-show="types.add[block]">{{types.add[block]}}</button>
@@ -33,15 +43,14 @@
 		<div class="item-block no-frame">
 		<button ng-click="newBlock()"> + </button><br>
 		<h3>Add an item</h3>
-	</div>
-	</div>
-
-	<div class="repeater2">
-		<div ng-repeat="item in outfitItems" class="item-block">
-			<img ng-src="./uploads/{{item.img}}">
-			<input type="checkbox" ng-model="miss" ng-change="clicking('generate', item._id)">
 		</div>
 	</div>
+
+	<!-- <div class="repeater2">
+		<div ng-repeat="item in outfitItems" class="generator-checkbox">
+			<input type="checkbox" ng-show="item._id" ng-model="miss" ng-change="clicking('clicked', item._id)">
+		</div>
+	</div> -->
 
 	<div class="repeater3">
 		<div class="item-block bg-border" ng-repeat="block in blocks">
