@@ -1,25 +1,75 @@
-<a href="/logout" class="btn btn-default btn-sm">Logout</a>
-       <!-- LOCAL INFORMATION -->
-     <% if (user.local.email) { %>
-      <p>
-          <strong>id</strong>: <%= user._id %><br>
-      </p>
-          
-          <a href="/unlink/local" class="btn btn-default">Unlink</a>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Clueless Closet</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel='stylesheet' href='/css/style.css' />
+    <link rel='stylesheet' href='/css/mobile.css' />
+  <body>
+
+  <div id="header">
+    <div class="left">
+      <form> 
+        <input type="button" value=" < " onClick="history.back()"> 
+      </form>
+    </div>
+    <div>
+      <% if (user.facebook.token) { %>
+      <h2><%= user.facebook.name %>'s
       <% } else { %>
-          <a href="/connect/local" class="btn btn-default">Connect Local</a>
+        <h2><%= user.local.name %>'s
       <% } %>
+        <a href="/#closet"><%= user.closet %></a> closet</h2> 
+    </div>
+    <div class="right">
+      <button onclick="location.href='/profile#/';">menu</button> 
+    </div>
+  </div>
 
-        <!-- FACEBOOK INFORMATION -->
-          <!-- check if the user has this token (is the user authenticated with this social account) -->
-          <% if (user.facebook.token) { %>
-              <p>
-                  <strong>id</strong>: <%= user._id %><br>
-                  <strong>name</strong>: <%= user.facebook.name %><br>
-              </p>
+  <div id="mobile-header">
+    <div class="left">
+      <form> 
+        <input type="button" value=" < " onClick="history.back()"> 
+      </form>
+    </div>
+    <div>
+      <% if (user.facebook.token) { %>
+      <h2><%= user.facebook.name %>'s
+      <% } else { %>
+        <h2><%= user.local.name %>'s
+      <% } %>
+        <a href="/#closet"><%= user.closet %></a> closet</h2> 
+    </div>
+    <div class="right">
+      <button onclick="location.href='/profile#/';">menu</button> 
+    </div>
+  </div>
 
-              <a href="/unlink/facebook" class="btn btn-primary">Unlink</a>
-          <% } else { %>
-              <a href="/connect/facebook" class="btn btn-primary">Connect Facebook</a>
-          <% } %>
+  <div id="container">
+    <div>
+      <% if (user.local.email) { %>
+        <h3>Clueless user: <%= user.local.name %> </h3><br>
+                  
+        <button class="small-button" onclick="location.href='/unlink/local';">Unlink</button>
+      <% } else { %>
+        <button class="small-button" onclick="location.href='/connect/local';">Connect Clueless user</button>
+      <% } %>
+      <br><br>
+      <% if (user.facebook.token) { %>
+          <h3>Facebook user: <%= user.facebook.name %> </h3><br>
+
+          <button class="small-button" onclick="location.href='/unlink/facebook';">Unlink</button>
+      <% } else { %>
+          <button class="small-button" onclick="location.href='/connect/facebook';">Connect Facebook user</button>
+      <% } %>
+    </div>
+  </div>      
+  </body>
+</html>
+
+
+
+
+
+
    

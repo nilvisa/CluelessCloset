@@ -17,6 +17,11 @@
 	}
 
 /*HEADER*/
+
+	#pitch {
+		margin: 0px;
+	}
+
 	#mobile-header {
 		display: block;
 		position: fixed;

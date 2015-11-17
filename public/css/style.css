@@ -479,6 +479,13 @@
 		box-shadow: 7px 7px 7px #000;
 	}
 
+/*USER*/
+
+	#counter div {
+		display: inline-block;
+		margin: auto;
+	}
+
 /*HACKS*/
 	.left {
 		float: left;

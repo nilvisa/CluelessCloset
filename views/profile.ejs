@@ -56,13 +56,15 @@
 	<div id="container">
     <ng-view>
     <div ng-init="userId = '<%= user._id %>'"></div>
+    <div ng-init="userName = '<%= user.local.name %>'"></div>
+    <div ng-init="userFB = '<%= user.facebook.name %>'"></div>
     </ng-view>
   </div>
   
 		
 
   <script src="angular/app.js"></script>
-  <script src="angular/welcome/welcomeCtrl.js"></script>
+  <script src="angular/user/userCtrl.js"></script>
   <script src="angular/item/itemCtrl.js"></script>
   <script src="angular/outfit/outfitCtrl.js"></script>
   <script src="angular/closet/closetCtrl.js"></script>

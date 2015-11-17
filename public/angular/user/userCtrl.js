@@ -1,15 +1,34 @@
-angular.module('welcome', [])
+angular.module('user', [])
 
 .config(['$routeProvider', function ($routeProvider) {
   $routeProvider
   	.when('/', {
-      templateUrl: 'angular/start.html',
+      templateUrl: '/angular/start.html',
       controller: 'startCtrl'
     })
 
     .when('/_=_', {
       templateUrl: 'angular/start.html',
       controller: 'startCtrl'
+    })
+
+    .when('/user', {
+      templateUrl: '/angular/user/showUser.html',
+      controller: 'userCtrl',
+      resolve: {
+        outfitsData: ['Outfits', function(Outfits) {
+          return Outfits.query();
+        }],
+        itemsData: ['Items', function(Items) {
+          return Items.query();
+        }],
+        typesData: ['Types', function(Types) {
+          return Types.query();
+        }],
+        closetsData: ['Closets', function(Closets) {
+          return Closets.query();
+        }]
+      }
     });     
 }])
 
@@ -52,4 +71,41 @@ angular.module('welcome', [])
 	}
   
 }])
+
+.controller('userCtrl', ['$scope', 'Items', 'itemsData', 'Outfits', 'outfitsData', 'typesData', 'closetsData', '$location', 
+  function ($scope, Items, itemsData, Outfits, outfitsData, typesData, closetsData, $location) {
+    $scope.outfits = outfitsData;
+    $scope.items = itemsData;
+    $scope.closets = closetsData;
+    $scope.score = $scope.outfits.length+$scope.items.length+$scope.closets.length;
+
+    var x = $scope.score;
+    switch(true) {
+    	case (x < 1):
+    	$scope.level = 'Travis';
+    	$scope.desc = "You couldn't care less...";
+    	break;
+    	case (x > 10):
+    	$scope.level = 'Tai';
+    	$scope.desc = "You're really trying...good for you!";
+    	break;
+    	case (x > 20):
+    	$scope.level = 'Dionne';
+    	$scope.desc = "Lookin' pretty good...";
+    	break;
+    	case (x > 80):
+    	$scope.level = 'Christian';
+    	$scope.desc = "Whoa! You're not a rookie.";
+    	break;
+    	case (x > 120):
+    	$scope.level = 'Cher';
+    	$scope.desc = "Full on master of the closet";
+    	break;
+    }
+
+
+
+
+
+ }])
 

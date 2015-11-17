@@ -15,7 +15,7 @@
 
 <h1 class="divider">Outfits containing this item:</h1><br>	
 <div ng-repeat="outfit in filteredOutfits = (outfits | filter: {items: item._id})">
-	<div class="outfit">
+	<div class="outfit osmall">
 		<div ng-repeat="itemId in outfit.items">
 			<a href="#/outfit/{{outfit._id}}">		
 				<div ng-repeat="item in items | filter : {_id: itemId}" class="small">
