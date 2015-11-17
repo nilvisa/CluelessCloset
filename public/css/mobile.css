@@ -1,0 +1,161 @@
+@media only screen and (max-width: 800px) 	{
+ /*ALL*/
+	input[type=text], input[type=password]{
+		width: 300px;
+	}
+
+	input, input[type=submit], input[type=file], input[type=button], select, option, button, .button {
+		font-size: 15px;
+	}
+
+	select {
+		height: 45px;
+	}
+
+	div, h1 {
+		margin: auto;
+	}
+
+/*HEADER*/
+	#mobile-header {
+		display: block;
+		position: fixed;
+		top: 0px;
+		width: 100%;
+		background: #000;
+		color: #fff;
+		padding: 1px;
+		z-index: 10;
+	}
+		#mobile-header div {
+			display: inline-block;
+		}
+
+		#mobile-header h2 {
+			font-size: 12px;
+			margin: 11px 0 0 0;
+			overflow: hidden;
+		}
+		#mobile-header button, #mobile-header input[type=button] {
+			font-size: 10px;
+		}
+
+	#header {
+		display: none;
+	}
+
+	#container {
+		margin-top: 50px;
+	}
+
+	#menu button {
+		font-size: 20px;
+	}
+
+/*ITEM*/
+	#top-buttons {
+		width: 100%;
+		height: auto;
+	}
+		#top-buttons .left, #top-buttons .right {
+			float: none;
+			margin: 5px auto;
+		}
+
+	#item-feed {
+		width: 100%;
+	}
+
+	.small img {
+		height: 70px;
+	}
+
+	.medium img {
+		height: 100px;
+	}
+
+	.large img {
+		height: 250px;
+	}
+
+	#item-wrapper {
+		width: 100%;
+	}
+
+	#single, #type-tag {
+		width: 300px;
+		margin: auto;
+	}
+
+
+
+/*OUTFIT*/
+	#generator-menu button {
+		padding-left: 3px;
+		padding-right: 3px;
+		width: 165px;
+		margin: 2px auto;
+	}
+
+	.item-block {
+		width: 150px;
+		height: 150px;
+		margin-left: 10px;
+	}
+		.item-block select, .item-block .different {
+			width: 110px;
+			height: 30px;
+			font-size: 10px;
+			padding: 0px;
+			margin: 0px;
+			border: 4px solid #bbb;
+			border-style: outset;
+		}
+
+	.generator-checkbox input[type=checkbox] {
+		height: auto;
+		width: auto;
+		cursor: pointer;
+	}
+
+	.no-frame button {
+		font-size: 40px;
+		width: 80px;
+		margin-top: 25px;
+	}
+
+	.center {
+		margin-top: 50px;
+	}
+
+	#mismatch h1 {
+		margin-left: -165px;
+		width: 300px;
+		font-size: 40px;
+	}
+
+	.margin {
+		margin: 5px;
+	}
+
+/*CLOSET*/
+
+	#closets .button {
+		font-size: 30px;
+		margin: 10px;
+	}
+
+/*POP-UPS*/
+
+	.pop-up {
+		top: 50px;
+		width: 320px;
+		margin-left: -165px;
+	}
+
+
+
+
+
+
+}

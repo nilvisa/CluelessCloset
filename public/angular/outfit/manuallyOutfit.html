@@ -1,23 +1,10 @@
-<select ng-model="choose.closet" ng-change="chooseCloset()">
-<option selected="true" disabled="disabled" value="">Choose closet</option>
-<option value="all">All items</option>
-<option ng-repeat="closet in closets" value="{{closet._id}}">{{closet.name}}</option>
+<select class="margin" ng-model="choose.closet" ng-change="chooseCloset()">
+	<option selected="true" disabled="disabled" value="">Choose closet</option>
+	<option value="all">All items</option>
+	<option ng-repeat="closet in closets" value="{{closet._id}}">{{closet.name}}</option>
 </select>
-<input type="text" ng-model="search" placeholder="Search garments"> 
-<button ng-click="saveOutfit('manual')" ng-disabled="!manualArray.length">Create outfit</button>
-
-<!-- <div id="created-outfit" ng-show="createdOutfit">
-<h1>You just created:</h1><br>		
-	<div class="outfit">
-		<div ng-repeat="itemId in createdOutfit.items">
-			<a href="#/outfit/{{createdOutfit._id}}">		
-				<div ng-repeat="item in allItems | filter : {_id: itemId}" class="small">
-					<img ng-src="./uploads/{{item.img}}">
-				</div>	
-			</a>	
-		</div>
-	</div>
-</div> -->
+<input class="margin" type="text" ng-model="search" placeholder="Search garments"> 
+<button class="margin" ng-click="saveOutfit('manual')" ng-disabled="!manualArray.length">Create outfit</button>
 
 <div id="size-buttons">
 	<button class="small-button" ng-click="imgSize='small'"> small </button>
@@ -31,9 +18,9 @@
 			<label>
 				<img ng-src="./uploads/{{item.img}}">
 				<div class="check">
-					<img src="/img/check.png" class="display-none" ng-class="{checked: chex.check}">
+					<img src="/img/check.png" class="display-none" ng-class="{checked: checked}">
 				</div>
-				<input type="checkbox" class="display-none" ng-model="chex.check[item._id]" ng-change="clicking('manualArray', item._id)">
+				<input type="checkbox" class="display-none" ng-model="checked" ng-change="clicking('manualArray', item._id)">
 			</label>
 		</div>
 	</div>

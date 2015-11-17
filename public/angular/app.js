@@ -82,19 +82,6 @@ angular.module('CC', ['ngRoute', 'ngResource', 'welcome', 'item', 'outfit', 'clo
     };
 }])
 
-// .config(['$routeProvider', function ($routeProvider) {
-//     $routeProvider.when('/', {
-//       templateUrl: 'angular/start.html'
-//     })
-// }])
-
-// .config(['$routeProvider', function ($routeProvider) {
-//     $routeProvider.when('/_=_', {
-//       templateUrl: 'angular/start.html'
-//     })
-// }])
-
-
 .config(['$resourceProvider', function($resourceProvider) {
   $resourceProvider.defaults.stripTrailingSlashes = false;
 }])

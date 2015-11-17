@@ -1,47 +1,49 @@
 <!doctype html>
 <html>
 <head>
-    <title>Node Authentication</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <title>Clueless Closet - Login</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel='stylesheet' href='/css/style.css' />
+    <link rel='stylesheet' href='/css/mobile.css' />
+    <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
     <style>
-        body        { padding-top:80px; }
+        body {
+            background-image: none;
+        }
     </style>
 </head>
 <body>
-<div class="container">
+<div id="front" class="container">
 
-<div class="col-sm-6 col-sm-offset-3">
+    <div id="form" class="plaid">
 
-    <h1><span class="fa fa-sign-in"></span> Signup</h1>
+        <h1> Signup</h1>
 
-    <!-- show any messages that come back with authentication -->
-    <% if (message.length > 0) { %>
-        <div class="alert alert-danger"><%= message %></div>
-    <% } %>
+        <!-- show any messages that come back with authentication -->
+        <% if (message.length > 0) { %>
+            <div><h3><%= message %></h3></div>
+        <% } %>
 
-    <!-- LOGIN FORM -->
-    <form action="/signup" method="post">
-       <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" name="name">
-        </div>
-        <div class="form-group">
-            <label>Email</label>
-            <input type="text" class="form-control" name="email">
-        </div>
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" name="password">
-        </div>
-
-        <button type="submit" class="btn btn-warning btn-lg">Signup</button>
-    </form>
-
-    <hr>
-
-    <p>Already have an account? <a href="/login">Login</a></p>
-    <p>Or go <a href="/">home</a>.</p>
+        <!-- LOGIN FORM -->
+        <form action="/signup" method="post">
+           <div class="form-group">
+                <input type="text" class="form-control" name="name" placeholder="Name">
+            </div><br>
+            <div class="form-group">
+                <input type="text" class="form-control" name="email" placeholder="Email">
+            </div><br>
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" placeholder="Password">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-warning btn-lg">Signup</button>
+        </form>
+    </div>
+    <div>
+        <h4>Already have an account?</h4>
+        <a href="/login">Login</a> / <a href="/auth/facebook">Facebook Login</a>
+        <h4>Or go <a href="/">back</a>.</h4>
+    </div>
 
 </div>
 

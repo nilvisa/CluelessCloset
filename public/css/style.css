@@ -10,6 +10,7 @@
 	}
 
 	body {
+		height: 100%;
 		padding: 0px;
 		margin: 0px;
 		background-image: url("/img/bg.png");
@@ -53,7 +54,7 @@
 		margin: 0px;
 	}
 
-	input, input[type=submit], input[type=button], select, option, button, .button {
+	input, input[type=submit], input[type=file], input[type=button], select, option, button, .button {
 		font-family: 'Chicago';
 		text-transform: uppercase;
 		font-weight: bold;
@@ -70,7 +71,11 @@
 		height: 53px;
 	}
 
-	input[type=submit]:hover, input[type=button]:hover, select:hover, option:hover, button:hover, .button:hover, .outfit:hover{
+	input[type=file] {
+		width: 300px;
+	}
+
+	input[type=submit]:hover, input[type=file]:hover, input[type=button]:hover, select:hover, option:hover, button:hover, .button:hover, .outfit:hover{
 		background: #597cfd;
 		border-color: #3c62f0;
 	}
@@ -83,7 +88,7 @@
 		margin: 3px;
 	}
 
-	input[type=submit]:active, input[type=button]:active, select:active, option:active, button:active, .button:active, .active, .outfit:active {
+	input[type=submit]:active, input[type=file]:active, input[type=button]:active, select:active, option:active, button:active, .button:active, .active, .outfit:active {
 		background: #597cfd;
 		border-color: #3c62f0;
 		border-style: inset;
@@ -110,8 +115,9 @@
 /*FRONT*/
 
 	#front {
-		max-width: 600px;
+		width: 600px;
 		margin: auto;
+		padding: 10px;
 	}
 		#front h2, #front h4 {
 			font-family: 'Arvo', arial, sans-serif;
@@ -141,13 +147,27 @@
 		font-weight: bold;
 	}
 
-	#login {
+	#video {
+		max-width: 100%;
+		margin: auto;
+	}
+
+	#login, .plaid {
 		background-image: url('/img/plaid.png');
 		padding: 15px;
 	}
 
+	#form {
+		max-width: 600px;
+		margin: auto;
+		margin-top: 70px;
+	}
 
 /*HEADER*/
+	#mobile-header {
+		display: none;
+	}
+
 	#header {
 		position: fixed;
 		top: 0px;
@@ -262,7 +282,7 @@
 		}
 
 	#single {
-		width: 400px
+		width: 400px;
 	}
 		#single img {
 			width: 100%;

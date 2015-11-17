@@ -1,16 +1,18 @@
 <div ng-show="!allItems.length">
 	<h3>You need to create some items before you can use this!</h3>
+	<br><br>
 </div>
-<br><br>
 
-<select ng-model="choose.closet" ng-change="chooseCloset()">
-<option selected="true" disabled="disabled" value="">Choose closet</option>
-<option value="all">All items</option>
-<option ng-repeat="closet in closets" value="{{closet._id}}">{{closet.name}}</option>
-</select>
-<button ng-click="randomize(); miss.check = false" ng-disabled="!coll.length">Generate Outfit!</button>
-<button ng-click="saveOutfit()" ng-disabled="!outfitItems.length">Save!</button>
-<button ng-click="missMatch(); showPopUp='show'" ng-disabled="clicked.length < 2">Mis-Match!</button>
+<div id="generator-menu">
+	<select ng-model="choose.closet" ng-change="chooseCloset()">
+		<option selected="true" disabled="disabled" value="">Choose closet</option>
+		<option value="all">All items</option>
+		<option ng-repeat="closet in closets" value="{{closet._id}}">{{closet.name}}</option>
+	</select>
+	<button ng-click="randomize(); miss.check = false" ng-disabled="!coll.length">Generate Outfit!</button>
+	<button ng-click="saveOutfit()" ng-disabled="!outfitItems.length">Save!</button>
+	<button ng-click="missMatch(); showPopUp='show'" ng-disabled="clicked.length < 2">Mis-Match!</button>
+</div>
 
 <div id="generator">
 	<div class="repeater2">

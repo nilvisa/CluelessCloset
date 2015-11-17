@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html ng-app="CC">
   <head>
-    <title></title>
+    <title>Clueless Closet</title>
+    <meta name="viewport" content="width=device-width" />
     <link rel='stylesheet' href='/css/style.css' />
+    <link rel='stylesheet' href='/css/mobile.css' />
 
     <!-- Angular Libraries -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -14,6 +16,25 @@
   <body>
 
   <div id="header">
+    <div class="left">
+      <form> 
+        <input type="button" value=" < " onClick="history.back()"> 
+      </form>
+    </div>
+    <div>
+      <% if (user.facebook.token) { %>
+      <h2><%= user.facebook.name %>'s
+      <% } else { %>
+        <h2><%= user.local.name %>'s
+      <% } %>
+        <a href="/#closet"><%= user.closet %></a> closet</h2> 
+    </div>
+    <div class="right">
+      <button onclick="location.href='/profile#/';">menu</button> 
+    </div>
+  </div>
+
+  <div id="mobile-header">
     <div class="left">
       <form> 
         <input type="button" value=" < " onClick="history.back()"> 
