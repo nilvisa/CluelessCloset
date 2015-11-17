@@ -107,6 +107,46 @@
 		border-color: #666;
 	}
 
+/*FRONT*/
+
+	#front {
+		max-width: 600px;
+		margin: auto;
+	}
+		#front h2, #front h4 {
+			font-family: 'Arvo', arial, sans-serif;
+			font-size: 18px;
+			text-transform: none;
+			font-weight: normal;
+		}
+		#front a:hover {
+			color: #f7d300;
+		}
+
+	.big {
+		font-size: 50px;
+	}
+
+	.no-bg {
+		background: none;
+		color: #000;
+	}
+
+	#pitch {
+		margin: -20px;
+	}
+
+	#pitch h2 {
+		font-size: 15px;
+		font-weight: bold;
+	}
+
+	#login {
+		background-image: url('/img/plaid.png');
+		padding: 15px;
+	}
+
+
 /*HEADER*/
 	#header {
 		position: fixed;
@@ -353,6 +393,10 @@
 			background: #000;
 		}
 
+	#type {
+		max-width: 500px;
+	}
+
 /*CLOSET*/
 	#closets {
 		width: 70%;
@@ -403,7 +447,7 @@
 		max-height: 364px;
 		overflow: auto;
 	}
-		#popup-content input[type=text] {
+		#popup-content input[type=text], #edit input[type=text]{
 			width: 176px;
 		}
 

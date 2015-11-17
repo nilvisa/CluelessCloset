@@ -118,6 +118,11 @@ function ($scope, $routeParams, Items, itemsData, Outfits, typesData, tagsData, 
 		Items.update({id: $scope.item._id}, $scope.item);
 	}
 
+  $scope.save2 = function(){
+    Items.update({id: $scope.item._id}, $scope.item);
+    $location.path('/items');
+  }
+
   $scope.addToArr = function(where, parent){
     $scope[where][0][parent].push($scope[where][parent]);
     if(where === 'types'){

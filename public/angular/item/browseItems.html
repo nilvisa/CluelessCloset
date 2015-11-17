@@ -10,7 +10,7 @@
 		<button class="small-button" ng-click="imgSize='large'"> large </button>
 	</div>
 
-	<div ng-repeat="item in items | filter: search" class="item medium" ng-class="imgSize">
+	<div ng-repeat="item in items | filter: search | orderBy:'-created'" class="item medium" ng-class="imgSize">
 		<a href="#/item/{{item._id}}">
 			<img ng-src="./uploads/{{item.img}}">
 		</a>

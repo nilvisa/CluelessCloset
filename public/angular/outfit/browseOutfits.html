@@ -11,7 +11,7 @@
 		<button class="small-button" ng-click="imgSize='large'; outfitSize='olarge'"> large </button>
 	</div>
 
-	<div ng-repeat="outfit in outfits | filter: search" ng-class="outfitSize" class="outfit osmall">
+	<div ng-repeat="outfit in outfits | filter: search | orderBy:'-_id'" ng-class="outfitSize" class="outfit osmall">
 		<div ng-repeat="itemId in outfit.items">
 			<a href="#/outfit/{{outfit._id}}">		
 				<div ng-repeat="item in allItems | filter : {_id: itemId}" class="small">

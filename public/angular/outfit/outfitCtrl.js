@@ -133,6 +133,10 @@ angular.module('outfit', [])
           }
         });
       }
+      $scope.outfitItems = [];
+      $scope.coll = [];
+      $scope.types.add = [];
+
       return $scope.closetItems;
     }
 
@@ -250,6 +254,7 @@ angular.module('outfit', [])
             angular.forEach($scope.allItems, function(findItem) {
               if(findItem._id === randItem){
                 $scope.outfitItems.push(findItem);
+                $scope.random.push(findItem._id);
               }
             })
           } else {
@@ -274,16 +279,16 @@ angular.module('outfit', [])
 
     $scope.saveOutfit = function(method){
       if(method === 'manual'){
-        var outfit = new Outfits({items: $scope.manualArray, owner: $scope.userId});
+        var outfit = new Outfits({items: $scope.manualArray, owner: $scope.userId, created: new Date()});
       
         outfit.$save(function(){
           $scope.outfits.push(outfit);
           // $scope.createdOutfit = outfit;
-          $location.path('/outfit/'+outfit._id);
+          $location.path('/outfits');
         });
 
       } else {
-      var outfit = new Outfits({items: $scope.random, owner: $scope.userId});
+      var outfit = new Outfits({items: $scope.random, owner: $scope.userId, created: new Date()});
 
       outfit.$save(function(){
           $scope.outfits.push(outfit);
@@ -357,6 +362,6 @@ angular.module('outfit', [])
 
     $scope.remove = function(){
       Outfits.remove({id: $scope.outfit._id});
-      $location.path('/outfit');
+      $location.path('/outfits');
     }
 }]);

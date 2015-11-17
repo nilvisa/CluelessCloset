@@ -1,46 +1,44 @@
-<div ng-repeat="type in types">
-	<div ng-repeat="(parent, array) in type">
-		<span ng-hide="parent == 'owner' || parent == '_id' || parent == '__v'">
-			<h4>{{parent}}</h4>
-			<div ng-repeat="child in array track by $index">
-				<button ng-show="!inArray('types', child)" ng-click="push('types', child)">add {{child}}</button>
-	    		<button ng-show="inArray('types', child)" ng-click="splice('types', child)">REMOVE {{child}}</button>
-			</div>
-			<!-- <div>
-			<input type="text" ng-model="types[parent]">
-			<button ng-click="addToArr(parent)">Add type</button>
-			</div> -->
-		</span>
-	</div>
-</div> 
+<button onclick="location.href='#/items';">Skip!</button><br>
 
-<h2>tags:</h2>
-<div ng-repeat="tag in tags">
-	<div ng-repeat="(parent, array) in tag">
-		<span ng-hide="parent == 'owner' || parent == '_id' || parent == '__v'">
-			<h4>{{parent}}</h4>
-			<div ng-repeat="child in array track by $index">
-				<button ng-show="!inArray('tags', child)" ng-click="push('tags', child)">add {{child}}</button>
-	    		<button ng-show="inArray('tags', child)" ng-click="splice('tags', child)">REMOVE {{child}}</button>
-			</div>
-				<!-- <input type="text" ng-model="types[parent]">
-				<button ng-click="addToArr(parent)">Add type</button><br><br> -->
-		</span>
-	</div>
-</div>
-
-<br><br>
-{{item}}<br><br>
-
-<div ng-show="item.missmatch.length">
-	Miss Matched with:
-	<div ng-repeat="itemId in item.missmatch">
-		<div ng-repeat="item in items | filter : {_id: itemId} ">
-			<a href="#/item/{{item._id}}">{{item.img}}</a>
+<h1 class="divider">Add garment types:</h1>
+<div id="edit">
+	<div class="padding wide" ng-repeat="type in types">
+		<div ng-repeat="(parent, array) in type">
+			<span ng-hide="parent == 'owner' || parent == '_id' || parent == '__v'">
+				<button ng-click="show = !show">{{parent}}</button><br>
+				<div ng-repeat="child in array track by $index" ng-show="show">
+					<button ng-show="!inArray('types', child)" ng-click="push('types', child)">{{child}}</button>
+		    		<button class="active" ng-show="inArray('types', child)" ng-click="splice('types', child)">{{child}}</button>
+				</div>
+				<div ng-show="show">
+				<input type="text" ng-model="types[parent]" placeholder="write"><br>
+				<button ng-click="addToArr('types', parent)" ng-disabled="!types[parent].length">Add type</button>
+				</div>
+				<br><br>
+			</span>
 		</div>
 	</div>
 </div>
-<br><br>
 
-<button ng-click="save()">Save</button>
-<button ng-click="remove()">REMOVE</button>
+
+<h1 class="divider">Tag item:</h1>
+<div id="edit">
+	<div class="padding wide" ng-repeat="tag in tags">
+		<div ng-repeat="(parent, array) in tag">
+			<span ng-hide="parent == 'owner' || parent == '_id' || parent == '__v'">
+				<button ng-click="show = !show">{{parent}}</button><br>
+				<div ng-repeat="child in array track by $index" ng-show="show">
+					<button ng-show="!inArray('tags', child)" ng-click="push('tags', child)">{{child}}</button>
+		    		<button class="active" ng-show="inArray('tags', child)" ng-click="splice('tags', child)">{{child}}</button>
+				</div>
+				<div ng-show="show">
+				<input type="text" ng-model="tags[parent]" placeholder="write"><br>
+				<button ng-click="addToArr('tags', parent)" ng-disabled="!tags[parent].length">Add tag</button>
+				</div>
+				<br><br>
+			</span>
+		</div>
+	</div>
+</div>
+
+<button ng-click="save2()">Save</button>

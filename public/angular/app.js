@@ -1,4 +1,4 @@
-angular.module('CC', ['ngRoute', 'ngResource', 'item', 'outfit', 'closet', 'type', 'tag'])
+angular.module('CC', ['ngRoute', 'ngResource', 'welcome', 'item', 'outfit', 'closet', 'type', 'tag'])
 
 .factory('Items', ['$resource', function($resource){
   return $resource('/items/:id', null, {
@@ -82,17 +82,17 @@ angular.module('CC', ['ngRoute', 'ngResource', 'item', 'outfit', 'closet', 'type
     };
 }])
 
-.config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/', {
-      templateUrl: 'angular/start.html'
-    })
-}])
+// .config(['$routeProvider', function ($routeProvider) {
+//     $routeProvider.when('/', {
+//       templateUrl: 'angular/start.html'
+//     })
+// }])
 
-.config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/_=_', {
-      templateUrl: 'angular/start.html'
-    })
-}])
+// .config(['$routeProvider', function ($routeProvider) {
+//     $routeProvider.when('/_=_', {
+//       templateUrl: 'angular/start.html'
+//     })
+// }])
 
 
 .config(['$resourceProvider', function($resourceProvider) {
