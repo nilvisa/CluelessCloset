@@ -235,12 +235,17 @@
 	}
 
 /*OUTFIT*/
+
+	#outfit-feed {
+		max-width: 800px;
+		margin: auto;
+	}
+
 	.outfit {
 		border: 7px solid #bbb;
 		border-style: outset;
 		display: inline-block;
-		margin: 5px;
-		height: 100px;
+		margin: 10px;
 	}
 		.outfit img {
 			border: none;
@@ -248,6 +253,18 @@
 		.outfit div {
 			display: inline-block;
 			margin: 0px;
+		}
+
+		.osmall, .osmall img {
+			height: 100px;
+		}
+
+		.omedium, .omedium img {
+			height: 200px;
+		}
+
+		.olarge, .olarge img {
+			height: 300px;
 		}
 
 	#generator {

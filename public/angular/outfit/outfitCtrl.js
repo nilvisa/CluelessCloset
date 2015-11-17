@@ -40,6 +40,25 @@ angular.module('outfit', [])
       }
     })
 
+    .when('/outfits', {
+      templateUrl: 'angular/outfit/browseOutfits.html',
+      controller: 'CreateOutfitCtrl',
+      resolve: {
+        outfitsData: ['Outfits', function(Outfits) {
+          return Outfits.query();
+        }],
+        itemsData: ['Items', function(Items) {
+          return Items.query();
+        }],
+        typesData: ['Types', function(Types) {
+          return Types.query();
+        }],
+        closetsData: ['Closets', function(Closets) {
+          return Closets.query();
+        }]
+      }
+    })
+
     .when('/outfit/:id', {
       templateUrl: 'angular/outfit/showOutfit.html',
       controller: 'UpdateOutfitCtrl',
@@ -155,48 +174,78 @@ angular.module('outfit', [])
   	$scope.randomize = function(){
   		$scope.random = [];
       $scope.outfitItems = [];
-      var goThroughArr = [];
+      console.log('NY RUNDA');
 
       // check if there's any items
       if($scope.coll.length) {
         for (var i = 1, len = $scope.coll.length; i < len; i++) {
+          console.log('NYTT BLOCK');
           var stop = false;
-          if($scope.coll[i]) {
-            var blockArr = $scope.coll[i];
-            // check if the block isn't empty
-            if(blockArr.length) {
-              while(stop === false){
-                // randomize item from block
-                var randItem = blockArr[Math.floor(Math.random() * blockArr.length)];
-                if($scope.outfitItems.length){  
-                  // check if it missmatches with the other items
-                  angular.forEach($scope.outfitItems, function(oItem){
-                    if(oItem.missmatch){
-                      if(oItem.missmatch.indexOf(randItem) !== -1){
-                        if(goThroughArr.indexOf(randItem) !== -1){
-                          if(goThroughArr.length === blockArr.length){
-                            randItem = i;
-                            stop = true;
-                            return;
+          var blockArr = $scope.coll[i];
+          var goThroughArr = [];
+          // check if the block isn't empty
+          if(blockArr.length) {
+            while(stop === false){
+              var loop = true;
+              // randomize item from block
+              var randItem = blockArr[Math.floor(Math.random() * blockArr.length)];
+              console.log('(tog ett nytt plagg)');
+              if($scope.outfitItems.length){  
+                // check if it missmatches with the other items
+                angular.forEach($scope.outfitItems, function(oItem){
+                  if(loop === true){
+                    if(oItem._id !== randItem){
+                    console.log('inte samma som tidigare');
+                      if(oItem.missmatch){
+                        console.log('har missmatcharrayen');
+                        if(oItem.missmatch.indexOf(randItem) !== -1){
+                          console.log('MM');
+                          if(goThroughArr.indexOf(randItem) !== -1){
+                            console.log('har redan kollat');
+                            if(goThroughArr.length === blockArr.length){
+                              randItem = i;
+                              console.log('stoppar');
+                              stop = true;
+                              loop = false;
+                              return;
+                            }
+                          } else {
+                            goThroughArr.push(randItem);
+                            console.log('till goThroug');
+                            loop = false;
+                            stop = false;
                           }
-                        } else {
-                          goThroughArr.push(randItem);
                           stop = false;
+                        } else {
+                          stop = true;
                         }
-                        stop = false;
-                      } else {
-                        stop = true;
-                      }
+                      } 
+                      // else {
+                      //   stop = true;
+                      // }
                     } else {
-                      stop = true;
+                      goThroughArr.push(randItem);
+                      if(goThroughArr.length === blockArr.length){
+                        randItem = i;
+                        console.log('stoppar');
+                        stop = true;
+                        return;
+                      } else {
+                        console.log('samma id, skicka tillbaka');
+                        stop = false;
+                        return;
+                      }
                     }
-                  });
-                } else {
-                  stop = true;
-                }
+                  }
+                  console.log(oItem._id);
+
+                 
+                });
+              } else {
+                stop = true;
               }
-            } else var randItem = i; 
-          } else var randItem = i;
+            }
+          } else var randItem = i; 
           if(randItem !== i) {
             angular.forEach($scope.allItems, function(findItem) {
               if(findItem._id === randItem){

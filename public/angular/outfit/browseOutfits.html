@@ -1,0 +1,27 @@
+<div id="top-buttons">
+	<button class="left" onclick="location.href='#/outfit';">Generate outfit</button>
+	<button class="left" onclick="location.href='#/outfit-manual';">Manuall outfit</button>
+	<input type="text" class="right" ng-model="search" placeholder="Search outfits">
+</div>
+
+<div id="outfit-feed" ng-show="items.length">
+	<div id="size-buttons">
+		<button class="small-button" ng-click="imgSize='small'; outfitSize='osmall'"> small </button>
+		<button class="small-button" ng-click="imgSize='medium'; outfitSize='omedium'"> medium </button>
+		<button class="small-button" ng-click="imgSize='large'; outfitSize='olarge'"> large </button>
+	</div>
+
+	<div ng-repeat="outfit in outfits | filter: search" ng-class="outfitSize" class="outfit osmall">
+		<div ng-repeat="itemId in outfit.items">
+			<a href="#/outfit/{{outfit._id}}">		
+				<div ng-repeat="item in allItems | filter : {_id: itemId}" class="small">
+					<img ng-src="./uploads/{{item.img}}">
+				</div>	
+			</a>	
+		</div>
+	</div>
+</div>
+
+<div ng-show="!outfits.length">
+	<h3>You don't have any outfits yet!</h3>
+</div>

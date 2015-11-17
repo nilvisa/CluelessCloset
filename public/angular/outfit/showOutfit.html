@@ -1,6 +1,6 @@
 <div ng-repeat="itemId in outfit.items">
 	<div ng-repeat="item in items | filter : {_id: itemId} ">
-		<a href="#/item/{{item._id}}"><img ng-src="./uploads/{{item.img}}" width="100px"></a>
+		<a href="#/item/{{item._id}}"><img ng-src="./uploads/{{item.img}}"></a>
 	</div>
 </div>
 
