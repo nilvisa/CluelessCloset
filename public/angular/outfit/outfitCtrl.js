@@ -294,8 +294,8 @@ angular.module('outfit', [])
 
 }])
 
-.controller('UpdateOutfitCtrl', ['$scope', 'Items', 'itemsData', 'tagsData', 'Outfits', 'getOutfit', '$location', 
-  function ($scope, Items, itemsData, tagsData, Outfits, getOutfit, $location) {
+.controller('UpdateOutfitCtrl', ['$scope', 'Items', 'itemsData', 'tagsData', 'Tags', 'Outfits', 'getOutfit', '$location', 
+  function ($scope, Items, itemsData, tagsData, Tags, Outfits, getOutfit, $location) {
     $scope.outfit = getOutfit;
     $scope.items = itemsData;
     $scope.tags = tagsData;
@@ -304,39 +304,55 @@ angular.module('outfit', [])
     $scope.inArray = function(where, string){
       var arr = $scope.outfit[where];
       
-      if (arr.indexOf(string) == -1){
+      if (arr.indexOf(string) === -1){
         return false  
       } else {
         return true;
       }
     }
 
+    if(!$scope.removeArray) {
+      $scope.removeArray = [];
+    }
+
+    $scope.clicking = function(array, item){
+      if($scope[array].indexOf(item) == -1){
+        $scope[array].push(item);
+      } else {
+        var index = $scope[array].indexOf(item);
+        $scope[array].splice(index, 1);
+      }
+    }
+
+    $scope.removeItem = function(){
+      angular.forEach($scope.removeArray, function(item, key){
+        var index = $scope.outfit.items.indexOf(item);
+        $scope.outfit.items.splice(index, 1);
+        Outfits.update({id: $scope.outfit._id}, $scope.outfit);
+        $scope.removeArray = [];
+      });
+    }
+
     $scope.push = function(where, string){
       $scope.outfit[where].push(string);
-      console.log($scope.outfit);
     }
 
     $scope.splice = function(where, string){
-    var arr = $scope.outfit[where];
-    var index = arr.indexOf(string);
-    $scope.outfit[where].splice(index, 1);
+      var arr = $scope.outfit[where];
+      var index = arr.indexOf(string);
+      $scope.outfit[where].splice(index, 1);
+    }
+
+    $scope.addToArr = function(where, parent){
+      $scope[where][0][parent].push($scope[where][parent]);
+      
+      Tags.update({id: $scope.tags[0]._id}, $scope.tags[0]);
+
+      $scope.tags[parent] = "";
     }
 
     $scope.save = function(){
       Outfits.update({id: $scope.outfit._id}, $scope.outfit);
-        $location.path('/outfit');
-    }
-
-    $scope.updateArr = function(where){
-    var string = $scope[where];
-    if(!string || string.length < 1) return;
-
-    var arr = $scope.user[where];
-    if(arr.indexOf(string) !== -1) return;
-
-    $scope.user[where].push(string);
-    Users.update({id: $scope.user._id}, $scope.user);
-    $scope[where] = "";
     }
 
     $scope.remove = function(){

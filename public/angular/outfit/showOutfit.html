@@ -1,28 +1,58 @@
-<div ng-repeat="itemId in outfit.items">
-	<div ng-repeat="item in items | filter : {_id: itemId} ">
+<div ng-repeat="itemId in outfit.items" class="item">
+	<div ng-repeat="item in items | filter : {_id: itemId}" class="medium">
+		<div class="checkbox">
+			<input type="checkbox" ng-model="click" ng-change="clicking('removeArray', item._id)">
+		</div>
 		<a href="#/item/{{item._id}}"><img ng-src="./uploads/{{item.img}}"></a>
 	</div>
 </div>
+<div class="clearfix"></div>
+<br><br><button ng-click="removeItem()" ng-disabled="!removeArray.length">Remove item from outfit</button>
 
-tag:
-<div ng-repeat="tag in tags">
-	<div ng-repeat="(parent, array) in tag">
-		<span ng-hide="parent == 'owner' || parent == '_id' || parent == '__v'">
-			<h4>{{parent}}</h4>
-			<div ng-repeat="child in array track by $index">
-				<button ng-show="!inArray('tags', child)" ng-click="push('tags', child)">add {{child}}</button>
-	    		<button ng-show="inArray('tags', child)" ng-click="splice('tags', child)">REMOVE {{child}}</button>
+<div id="type" class="divider">
+	<button ng-click="showTag='show'">add tag</button><br>
+	<h3 ng-repeat="tag in outfit.tags">{{tag}}</h3>
+</div>
+
+<button class="different divider" ng-click="showRemove='show'">Delete Outfit</button>
+
+<div id="remove" class="pop-up hidden" ng-class="showRemove">
+	<div id="banner">
+		<p>Delete this outfit?</p>
+		<button ng-click="showRemove='hidden'"> x </button>
+	</div>
+	<div id="popup-content">
+		<div class="padding">
+			<p>Are you really sure you want to delete this outfit?</p>
+			<p>(The items in this outfit will NOT be deleted.)</p>
+			<br><br>
+			<button ng-click="showRemove='hidden'">No, Cancel!</button>
+			<button class="different" ng-click="remove()">Yes, Delete!</button>
+		</div>
+	</div>	
+</div>
+
+<div id="addTag" class="pop-up hidden" ng-class="showTag">
+	<div id="banner">
+		<p>Add garment type</p>
+		<button ng-click="showTag='hidden'; save()"> x </button>
+	</div>
+	<div id="popup-content">
+		<div class="padding wide" ng-repeat="tag in tags">
+			<div ng-repeat="(parent, array) in tag">
+				<span ng-hide="parent == 'owner' || parent == '_id' || parent == '__v'">
+					<button ng-click="show = !show">{{parent}}</button><br>
+					<div ng-repeat="child in array track by $index" ng-show="show">
+						<button ng-show="!inArray('tags', child)" ng-click="push('tags', child)">{{child}}</button>
+			    		<button class="active" ng-show="inArray('tags', child)" ng-click="splice('tags', child)">{{child}}</button>
+					</div>
+					<div ng-show="show">
+					<input type="text" ng-model="tags[parent]" placeholder="write">
+					<button ng-click="addToArr('tags', parent)" ng-disabled="!tags[parent].length">Add tag</button>
+					</div>
+					<br><br>
+				</span>
 			</div>
-				<!-- <input type="text" ng-model="types[parent]">
-				<button ng-click="addToArr(parent)">Add type</button><br><br> -->
-		</span>
+		</div>
 	</div>
 </div>
-<br><br>
-
-
-{{outfit}}<br><br>
-
-
-<button ng-click="save()">Save</button>
-<button ng-click="remove()">REMOVE</button>
