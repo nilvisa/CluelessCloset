@@ -310,6 +310,10 @@
 		vertical-align: top;
 	}
 
+	#quote {
+		margin-top: 120px;
+	}
+
 /*OUTFIT*/
 
 	#outfit-feed {

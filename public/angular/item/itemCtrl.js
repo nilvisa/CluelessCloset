@@ -84,6 +84,25 @@ function ($scope, multipartForm, Items, itemsData, $location) {
     });
   }
 
+  $scope.quotes = [
+    '"Uugh...As if!" - Cher',
+    '"WHATEVER!" - Amber',
+    'Mel: "What the hell is that?"\n Cher: "A dress."\n Mel: "Says who?"\n Cher: "Calvin Klein."',
+     '"You see how picky I am about my shoes and they only go on my feet." - Cher',
+     '"Isnt my house classic? The columns date all the way back to 1972" - Cher',
+     '"Do you prefer "fashion victim" or "ensembly challenged"?" - Cher',
+     '"If Im too good for him, then how come Im not with him?" - Tai'
+     ];
+    
+  
+
+  $scope.randomQuote = function(){
+    $scope.quote = $scope.quotes[Math.floor(Math.random() * $scope.quotes.length)];
+    console.log($scope.quote);
+    return $scope.quote;
+
+  }
+
 }])
 
 .controller('UpdateItemCtrl', ['$scope', '$routeParams', 'Items', 'itemsData', 'Outfits', 'typesData', 'tagsData', '$location', 'getItem', 'Types', 'Tags', 'Closets', 
