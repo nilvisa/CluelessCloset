@@ -129,6 +129,11 @@
 			color: #f7d300;
 		}
 
+		#front h4 {
+			max-width: 450px;
+			margin: 50px auto 30px auto;
+		}
+
 	.big {
 		font-size: 50px;
 	}
@@ -152,6 +157,10 @@
 		margin: auto;
 	}
 
+	.front-img {
+		width: 550px;
+	}
+
 	#login, .plaid {
 		background-image: url('/img/plaid.png');
 		padding: 15px;
@@ -162,6 +171,13 @@
 		margin: auto;
 		margin-top: 70px;
 	}
+
+	#footer {
+		margin-top: 170px;
+	}
+		#footer h3 {
+			font-size: 12px;
+		}
 
 /*HEADER*/
 	#mobile-header {
@@ -306,6 +322,9 @@
 		border-style: outset;
 		display: inline-block;
 		margin: 10px;
+		white-space: nowrap;
+  		overflow: hidden;
+  		text-overflow: ellipsis;
 	}
 		.outfit img {
 			border: none;
@@ -320,11 +339,11 @@
 		}
 
 		.omedium, .omedium img {
-			height: 200px;
+			height: 150px;
 		}
 
 		.olarge, .olarge img {
-			height: 300px;
+			height: 200px;
 		}
 
 	#generator {
@@ -408,9 +427,11 @@
 		border: 7px solid #222;
 		border-style: outset;
 		z-index: 5;
+		color: #000;
 	}
 		#mismatch h1:hover {
 			background: #000;
+			color: #fff;
 		}
 
 	#type {

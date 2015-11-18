@@ -1,10 +1,10 @@
 @media only screen and (max-width: 800px) 	{
  /*ALL*/
-	input[type=text], input[type=password]{
+	input[type=text], input[type=password], input[type=email]{
 		width: 300px;
 	}
 
-	input, input[type=submit], input[type=file], input[type=button], select, option, button, .button {
+	input, input[type=submit], input[type=file],  input[type=button], select, option, button, .button {
 		font-size: 15px;
 	}
 
@@ -141,6 +141,14 @@
 
 	.margin {
 		margin: 5px;
+	}
+
+	#outfit-feed #size-buttons {
+		display: none;
+	}
+
+	.osmall {
+		height: 70px;
 	}
 
 /*CLOSET*/
