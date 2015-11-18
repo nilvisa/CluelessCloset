@@ -216,22 +216,23 @@ angular.module('outfit', [])
                           } else {
                             goThroughArr.push(randItem);
                             console.log('till goThroug');
-                            loop = false;
                             stop = false;
+                            loop = false;
                           }
                           stop = false;
                         } else {
                           stop = true;
                         }
                       } 
-                      // else {
-                      //   stop = true;
-                      // }
+                      else {
+                        stop = true;
+                      }
                     } else {
                       goThroughArr.push(randItem);
                       if(goThroughArr.length === blockArr.length){
                         randItem = i;
                         console.log('stoppar');
+                        loop = false;
                         stop = true;
                         return;
                       } else {
